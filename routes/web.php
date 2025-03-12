@@ -16,8 +16,15 @@ Route::post('/register', [RegistrationController::class, 'register'])->name('aut
 
 Route::get('/login', [LogInController::class, 'show'])->name('auth.login');
 Route::post('/login', [LogInController::class, 'login'])->name('auth.login');
+
 Route::post('/logout', [LogInController::class, 'logout'])->name('logout');
 
 Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel');
+
 Route::get('/animal', [FormAnimalController::class, 'create'])->name('animal.create');
 Route::post('/animal', [FormAnimalController::class, 'store'])->name('animal.store');
+
+Route::get('/panel-animales', [FormAnimalController::class, 'index'])->name('panel.animales');
+Route::delete('/panel-animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
+
+

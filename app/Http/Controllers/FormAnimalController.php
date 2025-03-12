@@ -8,11 +8,20 @@ use App\Models\User;
 
 class FormAnimalController extends Controller
 {
+    //Metodo para mostrar el formulario de registro de animales
     public function create()
     {
         return view('interfaces.animal');
     }
 
+    //Metodo para mostrar los datos de la tabla animales
+    public function index()
+    {
+        $animales = Animal::all(); // Obtiene todos los registros de la tabla animales
+        return view('interfaces.panelAnimal', compact('animales'));
+    }
+
+    //Metodo para guardar los datos del formulario de registro de animales
     public function store(Request $request)
     {
         // Verificar si los datos llegan correctamente
@@ -40,4 +49,13 @@ class FormAnimalController extends Controller
 
         return redirect()->route('homePanel')->with('success', 'Animal registrado con éxito.');
     }
+
+    public function destroy($id)
+    {
+        $animal = Animal::findOrFail($id); // Busca el animal por ID
+        $animal->delete(); // Elimina el registro
+
+        return redirect()->route('homePanel')->with('success', 'Animal eliminado correctamente.');
+    }
+
 }
