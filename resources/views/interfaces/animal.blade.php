@@ -9,6 +9,13 @@
     <title>Formulario de Registro</title>
 </head>
 <body>
+    
+    <div class="content">
+    <h2>Crianza</h2>
+    <p>Este es el contenido de la sección Crianza.</p>
+    <!-- Aquí puedes agregar más contenido relacionado con Crianza -->
+    </div>
+
     <h2>Registro de Mascotas</h2>
     <form action="{{ route('animal.store') }}" method="POST">
         @csrf

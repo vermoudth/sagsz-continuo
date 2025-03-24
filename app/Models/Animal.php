@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Animal extends Model
 {
-    use HasFactory;
+    //use HasFactory;
 
     protected $table = 'animales'; // Nombre real en la base de datos
 
