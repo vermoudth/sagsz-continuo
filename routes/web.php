@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\LogInController;
 use App\Http\Controllers\FormAnimalController;
+use App\Http\Controllers\TrasladosController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -30,3 +31,6 @@ Route::get('/animales/data', [FormAnimalController::class, 'getAnimalesData'])->
 
 // Ruta para eliminar un animal
 Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
+
+//Ruta para Panel de Traslados
+Route::get('/trasladosPanel', [TrasladosController::class, 'index'])->name('trasladosPanel');

@@ -1,5 +1,3 @@
-
-
 function cargarSeccion(ruta) {
   fetch(ruta)
       .then(response => response.text())
@@ -10,9 +8,19 @@ function cargarSeccion(ruta) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  //Panel de Crianza
   document.getElementById('crianza-link').addEventListener('click', function(e) {
       e.preventDefault();
       cargarSeccion(routePanelAnimales);
       document.getElementById('homePanel').style.display = 'none';
   });
+
+  //Panel de Traslados
+  document.getElementById('traslados-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    cargarSeccion(routePanelTraslados);
+    document.getElementById('homePanel').style.display = 'none';
+  });
+
 });
