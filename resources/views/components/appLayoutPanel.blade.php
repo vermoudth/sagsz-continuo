@@ -12,9 +12,9 @@
       <x-alert id="alerta"></x-alert>
   @endif
   <!--Contenedor principal-->
-  <div class="container d-flex mx-0 py-0 px-0 flex-shrink-0 p-3" style="height: 100vh;">
+  <div class="container-fluid d-flex mx-0 py-0 px-0 p-3" style="height: 100vh;">
     <!--Barra de navegación-->
-    <nav class="navbar-nav d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 180px;">
+    <nav class="navbar-nav d-flex flex-column p-3 bg-light" style="width: 15%;">
       <a href="/homePanel" class="d-flex align-items-center justify-content-evenly my-3 me-md-auto link-dark text-decoration-none">
         <img src="{{ asset('img/logo.jpeg') }}" class="img-fluid rounded" style="width: 30%;" alt="Logo">
         <span class="fs-4">SAGSZ</span>
@@ -22,7 +22,7 @@
       <hr>
       <ul class="nav flex-column mb-auto">
         <li class="nav-item">
-          <a class="nav-link link-dark" id="inicio-link" style="cursor: pointer"><i class="fas fa-home"></i> <strong>Inicio</strong></a>
+          <a href="/homePanel" class="nav-link link-dark" id="inicio-link" style="cursor: pointer"><i class="fas fa-home"></i> <strong>Inicio</strong></a>
         </li>
         <li>
           <a class="nav-link link-dark" id="traslados-link" style="cursor: pointer"><i class="fas fa-truck"></i> <strong>Traslados</strong></a>
@@ -50,21 +50,29 @@
     <div class="container">
       <main>
         <!--Cabecera de breadcums y busqueda-->
-        <header>
-          <nav aria-label="breadcrumb">
+        <header class="d-flex justify-content-evenly my-2 bg-light" style="width: 100%;">
+          <nav class="mx-1" aria-label="breadcrumb" style="width: 70%;">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/homePanel">Panel de Inicio</a></li>
-            </ol>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/homePanel">Panel de Inicio</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/homePanel">Panel de Inicio</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/homePanel">Panel de Inicio</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/homePanel">Panel de Inicio</a></li>
+            </ol>     
           </nav>
+          <form class="d-flex" style="width: 30%;" >
+            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>   
         </header>
+        <hr>
         <!--Contenido de Inicio-->
         <div id="homePanel" class=" text-center">
           <h1>Panel de Control</h1>
           <p>Bienvenido al panel de control de la aplicación.</p>
-          <img src="{{ asset('img/logo.jpeg') }}" class="img-fluid rounded" style="width: 40%;" alt="Logo">
+          <img src="{{ asset('img/logo.jpeg') }}" class="img-fluid rounded" style="width: 35%;" alt="Logo">
         </div>
         <!--Contenido Dinámico-->
-        <div id="contenido-dinamico"></div>
+        <div id="contenido-dinamico" class="d-flex flex-column aling-items-center text-center justify-content-center my-2"></div>
       </main>
     </div>
   </div>
