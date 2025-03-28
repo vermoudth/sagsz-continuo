@@ -1,28 +1,28 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col">
-      <span>0</span>
-      <p>Total traslados</p>
+      <span class="fs-4">00</span>
+      <p class="fs-6 fw-bolder">Total traslados</p>
     </div>
     <div class="col">
-      <i class="fas fa-university"></i>
-      <span>00</span>
-      <p>Institución que encomienda</p>
+      <i class="fas fa-university" style="height: 4vh;"></i>
+      <span class="fs-4">00</span>
+      <p class="fs-6 fw-bolder">Institución que encomienda</p>
     </div>
     <div class="col">
-      <i class="fas fa-map-marker-alt"></i>
-      <span>03</span>
-      <p>Lugar de traslado</p>
+      <i class="fas fa-map-marker-alt" style="height: 4vh;"></i>
+      <span class="fs-4">03</span>
+      <p class="fs-6 fw-bolder">Lugar de traslado</p>
     </div>
     <div class="col">
-      <i class="fas fa-paw"></i>
-      <span>00</span>
-      <p>Especie</p>
+      <i class="fas fa-paw" style="height: 4vh;"></i>
+      <span class="fs-4">00</span>
+      <p class="fs-6 fw-bolder">Especie</p>
     </div>
     <div class="col">
-      <i class="fas fa-user-md"></i>
-      <span>00</span>
-      <p>Médico Veterinario</p>
+      <i class="fas fa-user-md" style="height: 4vh;"></i>
+      <span class="fs-4">00</span>
+      <p class="fs-6 fw-bolder">Médico Veterinario</p>
     </div>
   </div>
   <div class="row">
