@@ -9,6 +9,7 @@
   <title>SAGSZ</title>
 </head>
 <body>
+    @include('components.alert')
   <main>
       <div class="container text-center">
         <h1>SAGSZ</h1>

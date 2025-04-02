@@ -8,7 +8,6 @@ use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\TrasladosController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('/login', [IndexController::class, 'show'])->name('login');
 Route::post('/login', [IndexController::class, 'login'])->name('login');
 Route::post('/logout', [IndexController::class, 'logout'])->name('logout');
 

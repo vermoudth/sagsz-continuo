@@ -1,4 +1,3 @@
-{{-- alert.blade.php --}}
 @if(session('success'))
     <div id="alert" class="alert alert-success position-absolute bottom-0 end-0 p-3 rounded shadow" role="alert">
         {{ session('success') }}
