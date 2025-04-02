@@ -8,9 +8,11 @@
     
 </head>
 <body>
-  @if(session('success'))
-      <x-alert id="alerta"></x-alert>
+  {{-- Muestra las alertas de sesión --}}
+  @if(session('success') || session('error') || session('debug'))
+  @include('components.alert')  {{-- Incluye el archivo de alertas --}}
   @endif
+  <!--<x-alert></x-alert>-->
   <!--Contenedor principal-->
   <div class="container-fluid d-flex mx-0 py-0 px-0 p-3" style="height: 100vh;">
     <!--Barra de navegación-->
@@ -45,10 +47,12 @@
         <ul class="dropdown-menu text-small shadow">
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item-text"><form action="{{ route('logout') }}" method="POST" style="display: inline;">
+          <li><a class="dropdown-item-text">
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
               @csrf
               <button type="submit" class="btn btn-danger">Cerrar sesión</button>
-            </form></a></li>
+            </form>
+          </a></li>
         </ul>
       </div>
     </nav>
