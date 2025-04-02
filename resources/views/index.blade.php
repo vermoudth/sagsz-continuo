@@ -10,7 +10,6 @@
 </head>
 <body>
   <main>
-    <x-appHomeLayout>
       <div class="container text-center">
         <h1>SAGSZ</h1>
         <div class="row justify-content-center align-items-center gy-5">
@@ -65,7 +64,6 @@
           </div>
         </div>
       </div>
-    </x-appHomeLayout>
   </main>
 </body>
 </html>

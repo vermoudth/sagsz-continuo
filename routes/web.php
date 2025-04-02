@@ -1,23 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
-use App\Http\Controllers\LogInController;
 use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\TrasladosController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/login', [IndexController::class, 'show'])->name('login');
+Route::post('/login', [IndexController::class, 'login'])->name('login');
+Route::post('/logout', [IndexController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegistrationController::class, 'show'])->name('auth.register');
 Route::post('/register', [RegistrationController::class, 'register'])->name('auth.register');
-
-Route::get('/login', [LogInController::class, 'show'])->name('login');
-Route::post('/login', [LogInController::class, 'login'])->name('login');
-
-
-Route::post('/logout', [LogInController::class, 'logout'])->name('logout');
 
 Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel');
 

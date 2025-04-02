@@ -5,18 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache; // Asegúrate de incluir esta línea
-
-class LogInController extends Controller
+use Illuminate\Support\Facades\Cache; 
+class IndexController extends Controller
 {
-    public function show()
+    public function index()
     {
         // Verificamos si hay datos de caché para mostrar en la vista (por ejemplo, mensaje de bienvenida o preferencias de usuario)
         $welcomeMessage = Cache::get('welcome_message', '¡Bienvenido!'); // Si no existe, se utiliza el valor por defecto
 
-        return view('auth.login', compact('welcomeMessage'));
+        return view('index', compact('welcomeMessage'));
     }
-
     public function login(Request $request)
     {
         try {
@@ -80,6 +78,6 @@ class LogInController extends Controller
         $request->session()->regenerateToken(); // Regenera el token CSRF para seguridad
 
         session()->flash('success', 'Sesión cerrada exitosamente.');
-        return redirect()->route('home');
+        return redirect()->route('index');
     }
 }
