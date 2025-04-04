@@ -21,7 +21,7 @@ class CrianzaController extends Controller
     // Mostrar el formulario de creación
     public function create()
     {
-        return view('crianza.create');
+        return view('interfaces.crianzaPanel');
     }
 
     // Guardar una nueva crianza
@@ -31,42 +31,39 @@ class CrianzaController extends Controller
             'animal_id' => 'required|exists:animales,id',
             'descripcion' => 'required|string',
             'fecha' => 'required|date',
-            'responsable_id' => 'required|exists:users,id'
+            'responsable_id' => 'required|exists:usuarios,id'
         ]);
 
         Crianza::create($request->all());
 
-        return redirect()->route('crianza.index')->with('success', 'Registro de crianza agregado exitosamente.');
+        return redirect()->route('homePanel')->with('success', 'Registro de crianza agregado exitosamente.');
     }
 
     // Mostrar detalles de una crianza específica
     public function show($id)
     {
         $crianza = Crianza::with(['animal', 'responsable'])->findOrFail($id);
-        return view('crianza.show', compact('crianza'));
+        return view('interfaces.crianzaPanel', compact('crianza'));
     }
 
     // Mostrar formulario de edición
     public function edit($id)
     {
         $crianza = Crianza::findOrFail($id);
-        return view('crianza.edit', compact('crianza'));
+        return view('interfaces.crianzaPanel', compact('crianza'));
     }
 
     // Actualizar una crianza existente
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'animal_id' => 'required|exists:animales,id',
-            'descripcion' => 'required|string',
-            'fecha' => 'required|date',
-            'responsable_id' => 'required|exists:users,id'
-        ]);
-
         $crianza = Crianza::findOrFail($id);
-        $crianza->update($request->all());
+        $crianza->animal_id = $request->animal_id;
+        $crianza->descripcion = $request->descripcion;
+        $crianza->fecha = $request->fecha;
+        $crianza->responsable_id = $request->responsable_id;
+        $crianza->save();
 
-        return redirect()->route('crianza.index')->with('success', 'Registro de crianza actualizado exitosamente.');
+        return redirect()->back()->with('success', 'Crianza actualizada correctamente.');
     }
 
     // Eliminar una crianza
@@ -75,6 +72,6 @@ class CrianzaController extends Controller
         $crianza = Crianza::findOrFail($id);
         $crianza->delete();
 
-        return redirect()->route('crianza.index')->with('success', 'Registro de crianza eliminado correctamente.');
+        return redirect()->route('homePanel')->with('success', 'Registro de crianza eliminado correctamente.');
     }
 }

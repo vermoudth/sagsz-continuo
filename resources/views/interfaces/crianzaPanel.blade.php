@@ -38,7 +38,16 @@
                           Descripción: {{ Str::limit($crianza->descripcion, 50) }}
                       </p>
                       <a href="{{ route('crianza.show', $crianza->id) }}" class="btn btn-info">Ver más</a>
-                      <a href="{{ route('crianza.edit', $crianza->id) }}" class="btn btn-warning">Editar</a>
+                      <button class="btn btn-warning btn-sm edit-btn" 
+                          data-id="{{ $crianza->id }}" 
+                          data-animal="{{ $crianza->animal_id }}" 
+                          data-descripcion="{{ $crianza->descripcion }}" 
+                          data-fecha="{{ $crianza->fecha }}" 
+                          data-responsable="{{ $crianza->responsable_id }}"
+                          data-bs-toggle="modal" data-bs-target="#editModal">
+                          Editar
+                      </button>
+
                       <form action="{{ route('crianza.destroy', $crianza->id) }}" method="POST" style="display:inline;">
                           @csrf
                           @method('DELETE')
@@ -69,26 +78,35 @@
               <form action="{{ route('crianza.store') }}" method="POST">
                   @csrf
                   <!-- Campos del formulario -->
+                    <!-- Campo Animal -->
                   <div class="mb-3">
+                    
                       <label for="animal_id" class="form-label">Animal</label>
                       <select class="form-select" name="animal_id" required>
-                          <option value="">Seleccionar Animal</option>
-                          <!-- Llenar con los animales disponibles -->
+                        <option value="">Seleccionar Animal</option>
+                          @foreach($animales as $animal)
+                            <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                          @endforeach
                       </select>
                   </div>
+                   <!-- Campo Descripción -->
                   <div class="mb-3">
                       <label for="descripcion" class="form-label">Descripción</label>
                       <textarea class="form-control" name="descripcion" rows="3" required></textarea>
                   </div>
+                  <!-- Campo Fecha -->
                   <div class="mb-3">
                       <label for="fecha" class="form-label">Fecha</label>
                       <input type="date" class="form-control" name="fecha" required>
                   </div>
+                  <!-- Campo Responsable -->
                   <div class="mb-3">
                       <label for="responsable_id" class="form-label">Responsable</label>
                       <select class="form-select" name="responsable_id" required>
                           <option value="">Seleccionar Responsable</option>
-                          <!-- Llenar con los responsables disponibles -->
+                          @foreach($usuarios as $usuario)
+                              <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                          @endforeach
                       </select>
                   </div>
                   <button type="submit" class="btn btn-primary">Guardar</button>
@@ -98,3 +116,84 @@
   </div>
 </div>
 
+<!-- Modal para Editar Crianza -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Editar Crianza</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="editForm" method="POST"  action="{{ route('crianza.update', $crianza->id) }}">
+                  @csrf
+                  @method('PUT') <!-- Método PUT para actualización -->
+
+                  <!-- Campo Animal -->
+                  <div class="mb-3">
+                      <label for="edit_animal_id" class="form-label">Animal</label>
+                      <select class="form-select" name="animal_id" id="edit_animal_id" required>
+                          @foreach($animales as $animal)
+                              <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+
+                  <!-- Campo Descripción -->
+                  <div class="mb-3">
+                      <label for="edit_descripcion" class="form-label">Descripción</label>
+                      <textarea class="form-control" name="descripcion" id="edit_descripcion" rows="3" required></textarea>
+                  </div>
+
+                  <!-- Campo Fecha -->
+                  <div class="mb-3">
+                      <label for="edit_fecha" class="form-label">Fecha</label>
+                      <input type="date" class="form-control" name="fecha" id="edit_fecha" required>
+                  </div>
+
+                  <!-- Campo Responsable -->
+                  <div class="mb-3">
+                      <label for="edit_responsable_id" class="form-label">Responsable</label>
+                      <select class="form-select" name="responsable_id" required>
+                          <option value="">Seleccionar Responsable</option>
+                          @foreach($usuarios as $usuario)
+                              <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Actualizar</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const editModal = document.getElementById('editModal');
+      const editForm = document.getElementById('editForm');
+      const editAnimal = document.getElementById('edit_animal_id');
+      const editDescripcion = document.getElementById('edit_descripcion');
+      const editFecha = document.getElementById('edit_fecha');
+      const editResponsable = document.getElementById('edit_responsable_id');
+  
+      document.querySelectorAll('.edit-btn').forEach(button => {
+          button.addEventListener('click', function() {
+              const crianzaId = this.getAttribute('data-id');
+              const animalId = this.getAttribute('data-animal');
+              const descripcion = this.getAttribute('data-descripcion');
+              const fecha = this.getAttribute('data-fecha');
+              const responsableId = this.getAttribute('data-responsable');
+  
+              editForm.action = `/crianza/${crianzaId}`; // Ruta de actualización
+              editAnimal.value = animalId;
+              editDescripcion.value = descripcion;
+              editFecha.value = fecha;
+              editResponsable.value = responsableId;
+          });
+      });
+  });
+  </script>
+  
