@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\CategoriaAnimal;
 
 class Animal extends Model
 {
@@ -23,4 +24,14 @@ class Animal extends Model
     ];
 
     public $timestamps = false; // Laravel no manejará created_at y updated_at automáticamente
+
+    public function responsable()
+    {
+        return $this->belongsTo(User::class, 'responsable_id');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(CategoriaAnimal::class, 'categoria_id');  // La categoría del animal
+    }
 }

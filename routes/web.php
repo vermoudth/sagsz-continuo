@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\TrasladosController;
+use App\Http\Controllers\CrianzaController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::post('/login', [IndexController::class, 'login'])->name('login');
@@ -15,6 +16,15 @@ Route::get('/register', [RegistrationController::class, 'show'])->name('auth.reg
 Route::post('/register', [RegistrationController::class, 'register'])->name('auth.register');
 
 Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel');
+
+//Rutas de Panel de Crianza
+Route::get('/crianza', [CrianzaController::class, 'index'])->name('crianza.index');
+Route::get('/crianza/create', [CrianzaController::class, 'create'])->name('crianza.create');
+Route::post('/crianza', [CrianzaController::class, 'store'])->name('crianza.store');
+Route::get('/crianza/{id}', [CrianzaController::class, 'show'])->name('crianza.show');
+Route::get('/crianza/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
+Route::put('/crianza/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
+Route::delete('/crianza/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 
 // Rutas para el manejo de animales
 Route::get('/animal', [FormAnimalController::class, 'create'])->name('animal.create');
@@ -30,3 +40,7 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 
 //Ruta para Panel de Traslados
 Route::get('/trasladosPanel', [TrasladosController::class, 'index'])->name('trasladosPanel');
+
+Route::get('/test-503', function () {
+  abort(503);
+});

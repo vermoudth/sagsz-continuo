@@ -10,7 +10,7 @@
 <body>
   {{-- Muestra las alertas de sesión --}}
   @if(session('success') || session('error') || session('debug'))
-  @include('components.alert')  {{-- Incluye el archivo de alertas --}}
+    @include('components.alert')  {{-- Incluye el archivo de alertas --}}
   @endif
   <!--<x-alert></x-alert>-->
   <!--Contenedor principal-->
@@ -88,7 +88,7 @@
   </div>
 
   <script>
-    var routePanelAnimales = "{{ route('panel.animales') }}";
+    var routePanelCrianza = "{{ route('crianza.index') }}";
     var routePanelTraslados = "{{ route('trasladosPanel') }}";
   </script>
 

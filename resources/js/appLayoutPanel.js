@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //Panel de Crianza
   document.getElementById('crianza-link').addEventListener('click', function(e) {
       e.preventDefault();
-      cargarSeccion(routePanelAnimales);
+      cargarSeccion(routePanelCrianza);
       document.getElementById('homePanel').style.display = 'none';
   });
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Rol;
+use App\Models\Animal;
 
 class User extends Authenticatable
 {
@@ -36,4 +37,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Rol::class, 'rol_id');
     }
+
+    public function animales()
+{
+    return $this->hasMany(Animal::class, 'responsable_id');
+}
 }
