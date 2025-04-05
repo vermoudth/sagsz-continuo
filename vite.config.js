@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/css/sidebars.css',
                 'resources/js/appLayoutPanel.js',
                 'resources/js/showFormU.js',
+                'resources/js/theme.js',
             ],
             refresh: true,
         }),

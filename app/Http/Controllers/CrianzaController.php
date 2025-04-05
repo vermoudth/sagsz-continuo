@@ -74,4 +74,16 @@ class CrianzaController extends Controller
 
         return redirect()->route('homePanel')->with('success', 'Registro de crianza eliminado correctamente.');
     }
+
+    public function filtrar(Request $request)
+    {
+        $categoria = $request->categoria;
+        $crianzas = Crianza::whereHas('animal', function ($query) use ($categoria) {
+            $query->where('categoria', $categoria);
+        })->with(['animal', 'responsable'])->get();
+
+        return view('partials.crianzaCards', compact('crianzas'));
+    }
+
+
 }

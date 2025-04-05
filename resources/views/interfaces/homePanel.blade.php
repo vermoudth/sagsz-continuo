@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/appLayoutPanel.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/appLayoutPanel.js', 'resources/js/theme.js'])
     <title>Panel de Control</title>
     
 </head>
@@ -12,13 +12,12 @@
   @if(session('success') || session('error') || session('debug'))
     @include('components.alert')  {{-- Incluye el archivo de alertas --}}
   @endif
-  <!--<x-alert></x-alert>-->
   <!--Contenedor principal-->
   <div class="container-fluid d-flex mx-0 py-0 px-0 p-3" style="height: 100vh;">
     <!--Barra de navegación-->
-    <nav class="navbar-nav d-flex flex-column p-3 bg-light" style="width: 18%;">
+    <nav class="navbar-nav d-flex flex-column p-3 " style="width: 18%;">
       <a href="/homePanel" class="d-flex align-items-center justify-content-evenly my-3 me-md-auto link-dark text-decoration-none">
-        <img src="{{ asset('img/logo.jpeg') }}" class="img-fluid rounded" style="width: 30%;" alt="Logo">
+        <img src="{{ asset('img/SAGSZ_logo.png') }}" class="img-fluid rounded" style="width: 30%;" alt="Logo">
         <span class="fs-4">SAGSZ</span>
       </a>
       <hr>
@@ -60,7 +59,7 @@
     <div class="container">
       <main>
         <!--Cabecera de breadcums y busqueda-->
-        <header class="d-flex justify-content-evenly my-2 bg-light" style="width: 100%;">
+        <header class="d-flex justify-content-evenly my-2" style="width: 100%;">
           <nav class="mx-1" aria-label="breadcrumb" style="width: 70%;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/homePanel">Panel de Inicio</a></li>
@@ -79,7 +78,7 @@
         <div id="homePanel" class=" text-center">
           <h1>Panel de Control</h1>
           <p>Bienvenido al panel de control de la aplicación.</p>
-          <img src="{{ asset('img/logo.jpeg') }}" class="img-fluid rounded" style="width: 35%;" alt="Logo">
+          <img src="{{ asset('img/SAGSZ_logo.png') }}" class="img-fluid rounded" style="width: 35%;" alt="Logo">
         </div>
         <!--Contenido Dinámico-->
         <div id="contenido-dinamico" class="d-flex flex-column aling-items-center text-center justify-content-center my-2"></div>

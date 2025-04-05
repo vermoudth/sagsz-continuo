@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/showFormU.js'])
+  @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/showFormU.js', 'resources/js/theme.js'])
 
   <title>SAGSZ</title>
 </head>
 <body>
     @include('components.alert')
+    <!-- Toggle Dark/Light -->
+    <div class="me-3 mt-2">
+        <button id="darkModeToggle" class="btn btn-outline-secondary border-0">
+        <span id="themeIcon">🌙</span>
+        </button>
+    </div>
+  
+  
   <main>
       <div class="container text-center">
-        <h1>SAGSZ</h1>
+        <h1 class="mx-1 my-2">SAGSZ</h1>
         <div class="row justify-content-center align-items-center gy-5">
           <div class="col-6">
-              <img src="{{ asset('img/logo.jpeg') }}" class="img-responsive rounded" style="width: 80%;" alt="...">
+              <img src="{{ asset('img/SAGSZ_logo.png') }}" class="img-responsive rounded" style="width: 80%;" alt="...">
           </div>
 
           <div class="col-6">

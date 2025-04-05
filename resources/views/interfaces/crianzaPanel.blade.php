@@ -5,7 +5,7 @@
       <a href="{{ route('crianza.create') }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Añadir Crianza</a>
   </div>
 
-  <!-- Filtro de categorías (opcional) -->
+  <!-- Filtro de categorías (opcional) 
   <div class="mb-4">
       <form method="GET" action="{{ route('crianza.index') }}">
           <div class="row">
@@ -23,21 +23,20 @@
               </div>
           </div>
       </form>
-  </div>
+  </div>-->
 
   <!-- Cards para mostrar las crianzas -->
   <div class="row">
       @foreach($crianzas as $crianza)
           <div class="col-md-4 mb-4">
               <div class="card">
-                  <img src="{{ asset('images/animal_default.jpg') }}" class="card-img-top" alt="Imagen Animal">
                   <div class="card-body">
                       <h5 class="card-title">{{ $crianza->animal->nombre }}</h5>
                       <p class="card-text">
                           Fecha de Registro: {{ \Carbon\Carbon::parse($crianza->fecha)->format('d/m/Y') }}<br>
                           Descripción: {{ Str::limit($crianza->descripcion, 50) }}
                       </p>
-                      <a href="{{ route('crianza.show', $crianza->id) }}" class="btn btn-info">Ver más</a>
+
                       <button class="btn btn-warning btn-sm edit-btn" 
                           data-id="{{ $crianza->id }}" 
                           data-animal="{{ $crianza->animal_id }}" 
@@ -51,7 +50,7 @@
                       <form action="{{ route('crianza.destroy', $crianza->id) }}" method="POST" style="display:inline;">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">Eliminar</button>
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">Eliminar</button>
                       </form>
                   </div>
               </div>
@@ -197,3 +196,20 @@
   });
   </script>
   
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filtroCategorias = document.getElementById("filtro-categoria");
+    
+        filtroCategorias.addEventListener("change", function () {
+            let categoria = this.value;
+    
+            fetch(`/filtrar-crianza?categoria=${categoria}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("contenedor-crianza").innerHTML = html;
+                })
+                .catch(error => console.error("Error al cargar las crianzas:", error));
+        });
+    });
+    </script>
+    

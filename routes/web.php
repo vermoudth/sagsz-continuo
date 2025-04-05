@@ -25,6 +25,8 @@ Route::get('/crianza/{id}', [CrianzaController::class, 'show'])->name('crianza.s
 Route::get('/crianza/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
 Route::put('/crianza/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
 Route::delete('/crianza/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
+Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
+
 
 // Rutas para el manejo de animales
 Route::get('/animal', [FormAnimalController::class, 'create'])->name('animal.create');
