@@ -14,8 +14,15 @@
   @endif
   <!--Contenedor principal-->
   <div class="container-fluid d-flex mx-0 py-0 px-0 p-3" style="height: 100vh;">
+    
     <!--Barra de navegación-->
     <nav class="navbar-nav d-flex flex-column p-3 " style="width: 18%;">
+      <!-- Toggle Dark/Light -->
+      <div class="me-3 mt-2">
+        <button id="darkModeToggle" class="btn btn-outline-secondary border-0">
+        <span id="themeIcon">🌙</span>
+        </button>
+      </div>
       <a href="/homePanel" class="d-flex align-items-center justify-content-evenly my-3 me-md-auto link-dark text-decoration-none">
         <img src="{{ asset('img/SAGSZ_logo.png') }}" class="img-fluid rounded" style="width: 30%;" alt="Logo">
         <span class="fs-4">SAGSZ</span>

@@ -5,36 +5,33 @@
       <a href="{{ route('crianza.create') }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Añadir Crianza</a>
   </div>
 
-  <!-- Filtro de categorías (opcional) 
-  <div class="mb-4">
-      <form method="GET" action="{{ route('crianza.index') }}">
-          <div class="row">
-              <div class="col">
-                  <select class="form-select" name="categoria" id="categoria">
-                      <option value="">Seleccionar Categoría</option>
-                      <option value="Aves">Aves</option>
-                      <option value="Mamíferos">Mamíferos</option>
-                      <option value="Herpetofauna">Herpetofauna</option>
-                      <option value="Acuario">Acuario</option>
-                  </select>
-              </div>
-              <div class="col">
-                  <button type="submit" class="btn btn-secondary">Filtrar</button>
-              </div>
-          </div>
-      </form>
-  </div>-->
+  <!-- Filtro de categorías (JS dinámico) -->
+<div class="mb-4">
+    <div class="row">
+        <div class="col">
+            <select class="form-select" id="filtro-categoria">
+                <option value="">Todas las Categorías</option>
+                <option value="Aves">Aves</option>
+                <option value="Mamíferos">Mamíferos</option>
+                <option value="Herpetofauna">Herpetofauna</option>
+                <option value="Acuario">Acuario</option>
+            </select>
+        </div>
+    </div>
+</div>
 
   <!-- Cards para mostrar las crianzas -->
   <div class="row">
       @foreach($crianzas as $crianza)
           <div class="col-md-4 mb-4">
-              <div class="card">
+              <div class="card" data-categoria="{{ $crianza->animal->categoria }}">
                   <div class="card-body">
                       <h5 class="card-title">{{ $crianza->animal->nombre }}</h5>
                       <p class="card-text">
                           Fecha de Registro: {{ \Carbon\Carbon::parse($crianza->fecha)->format('d/m/Y') }}<br>
-                          Descripción: {{ Str::limit($crianza->descripcion, 50) }}
+                          Descripción: {{ Str::limit($crianza->descripcion, 50) }} <br>
+                          Fecha: {{ $crianza->fecha }} <br>
+                          Responsable: {{ $crianza->responsable->nombre }} <br>
                       </p>
 
                       <button class="btn btn-warning btn-sm edit-btn" 
@@ -201,15 +198,20 @@
         const filtroCategorias = document.getElementById("filtro-categoria");
     
         filtroCategorias.addEventListener("change", function () {
-            let categoria = this.value;
+            let categoriaSeleccionada = this.value;
+            let cards = document.querySelectorAll("#contenedor-crianza .card");
     
-            fetch(`/filtrar-crianza?categoria=${categoria}`)
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById("contenedor-crianza").innerHTML = html;
-                })
-                .catch(error => console.error("Error al cargar las crianzas:", error));
+            cards.forEach(card => {
+                let categoria = card.getAttribute("data-categoria");
+    
+                if (categoriaSeleccionada === "" || categoria === categoriaSeleccionada) {
+                    card.style.display = "block"; // Mostrar la card
+                } else {
+                    card.style.display = "none"; // Ocultar la card
+                }
+            });
         });
     });
     </script>
+    
     
