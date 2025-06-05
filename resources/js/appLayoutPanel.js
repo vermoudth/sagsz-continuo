@@ -1,17 +1,9 @@
-import Alpine from 'alpinejs'
-window.Alpine = Alpine
-Alpine.start()
-
 function cargarSeccion(ruta) {
   fetch(ruta)
     .then(response => response.text())
     .then(html => {
-      const el = document.getElementById('contenido-dinamico');
-      el.innerHTML = html;
-
-      // 👇 Esto reinicializa Alpine sobre el contenido nuevo
       if (window.Alpine) {
-        Alpine.initTree(el);
+        Alpine.initTree(document.getElementById('contenido-dinamico'));
       }
     })
     .catch(error => console.error('Error al cargar la sección:', error));

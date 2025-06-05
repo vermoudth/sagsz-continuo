@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/appLayoutPanel.js', 'resources/js/theme.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Panel de Control</title>
 </head>
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
@@ -107,25 +107,25 @@
         <!--Contenido Dinámico-->
         <div id="contenido-dinamico" class="flex flex-col items-center justify-center mt-4">
               <div x-data="{ open: false }" class="text-center my-4">
-  <button @click="open = true" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-    Abrir modal
-  </button>
+                <button @click="open = true" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                  Abrir modal
+                </button>
 
-  <!-- Modal -->
-  <div
-    x-show="open"
-    x-transition
-    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-  >
-    <div @click.away="open = false" class="bg-white p-6 rounded-2xl w-full max-w-md shadow-xl">
-      <h2 class="text-xl font-bold mb-4">Título del Modal</h2>
-      <p class="mb-4 text-gray-600">Este es un modal simple usando Alpine.js + Tailwind.</p>
-      <button @click="open = false" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-        Cerrar
-      </button>
-    </div>
-  </div>
-</div>
+                <!-- Modal -->
+                <div
+                  x-show="open"
+                  x-transition
+                  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+                >
+                  <div @click.away="open = false" class="bg-white p-6 rounded-2xl w-full max-w-md shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Título del Modal</h2>
+                    <p class="mb-4 text-gray-600">Este es un modal simple usando Alpine.js + Tailwind.</p>
+                    <button @click="open = false" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
 
 
         </div>
