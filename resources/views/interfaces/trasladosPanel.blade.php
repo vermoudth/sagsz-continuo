@@ -1,199 +1,82 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <span class="fs-4">00</span>
-      <p class="fs-6 fw-bolder">Total traslados</p>
+<div class="w-full p-4 space-y-6">
+  <!-- Estadísticas generales -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+    <div>
+      <span class="text-2xl font-semibold">00</span>
+      <p class="text-sm font-bold">Total traslados</p>
     </div>
-    <div class="col">
-      <i class="fas fa-university" style="height: 4vh;"></i>
-      <span class="fs-4">00</span>
-      <p class="fs-6 fw-bolder">Institución que encomienda</p>
+    <div>
+      <i class="fas fa-university text-xl"></i>
+      <span class="text-2xl font-semibold block">00</span>
+      <p class="text-sm font-bold">Institución que encomienda</p>
     </div>
-    <div class="col">
-      <i class="fas fa-map-marker-alt" style="height: 4vh;"></i>
-      <span class="fs-4">03</span>
-      <p class="fs-6 fw-bolder">Lugar de traslado</p>
+    <div>
+      <i class="fas fa-map-marker-alt text-xl"></i>
+      <span class="text-2xl font-semibold block">03</span>
+      <p class="text-sm font-bold">Lugar de traslado</p>
     </div>
-    <div class="col">
-      <i class="fas fa-paw" style="height: 4vh;"></i>
-      <span class="fs-4">00</span>
-      <p class="fs-6 fw-bolder">Especie</p>
+    <div>
+      <i class="fas fa-paw text-xl"></i>
+      <span class="text-2xl font-semibold block">00</span>
+      <p class="text-sm font-bold">Especie</p>
     </div>
-    <div class="col">
-      <i class="fas fa-user-md" style="height: 4vh;"></i>
-      <span class="fs-4">00</span>
-      <p class="fs-6 fw-bolder">Médico Veterinario</p>
+    <div>
+      <i class="fas fa-user-md text-xl"></i>
+      <span class="text-2xl font-semibold block">00</span>
+      <p class="text-sm font-bold">Médico Veterinario</p>
     </div>
   </div>
-  <div class="row">
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-tittle">Traslado 1</h2>
-          <div class="row">
-            <div class="col">
-              <i class="icon pressure-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Especie</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon vibration-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>veterinario</p>
-              </div>
-            </div>
-          </div>
+  <!-- Cards de traslados -->
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+    <!-- Card ejemplo -->
+    <div class="bg-white shadow rounded-2xl p-4">
+      <h2 class="text-lg font-bold mb-4">Traslado 1</h2>
 
-          <div class="row">
-            <div class="col">
-              <i class="icon temperature-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Institución</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon gasflow-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Lugar</p>
-              </div>
-            </div>
-          </div>
-          
+      <div class="grid grid-cols-2 gap-4 text-center">
+        <div>
+          <i class="icon pressure-icon text-blue-500 text-xl"></i>
+          <p class="text-base font-medium">00</p>
+          <p class="text-sm text-gray-600">Especie</p>
+        </div>
+        <div>
+          <i class="icon vibration-icon text-green-500 text-xl"></i>
+          <p class="text-base font-medium">00</p>
+          <p class="text-sm text-gray-600">Veterinario</p>
+        </div>
+        <div>
+          <i class="icon temperature-icon text-red-500 text-xl"></i>
+          <p class="text-base font-medium">00</p>
+          <p class="text-sm text-gray-600">Institución</p>
+        </div>
+        <div>
+          <i class="icon gasflow-icon text-purple-500 text-xl"></i>
+          <p class="text-base font-medium">00</p>
+          <p class="text-sm text-gray-600">Lugar</p>
         </div>
       </div>
     </div>
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-tittle">Traslado 2</h2>
-          <div class="row">
-            <div class="col">
-              <i class="icon pressure-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Especie</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon vibration-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>veterinario</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <i class="icon temperature-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Institución</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon gasflow-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Lugar</p>
-              </div>
-            </div>
-          </div>
-          
-        </div>
+    <!-- Copias de la tarjeta anterior -->
+    <div class="bg-white shadow rounded-2xl p-4">
+      <h2 class="text-lg font-bold mb-4">Traslado 2</h2>
+      <div class="grid grid-cols-2 gap-4 text-center">
+        <!-- Repite contenido con otros datos -->
       </div>
     </div>
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-tittle">Traslado 3</h2>
-          <div class="row">
-            <div class="col">
-              <i class="icon pressure-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Especie</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon vibration-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>veterinario</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <i class="icon temperature-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Institución</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon gasflow-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Lugar</p>
-              </div>
-            </div>
-          </div>
-          
-        </div>
+    <div class="bg-white shadow rounded-2xl p-4">
+      <h2 class="text-lg font-bold mb-4">Traslado 3</h2>
+      <div class="grid grid-cols-2 gap-4 text-center">
+        <!-- Repite contenido con otros datos -->
       </div>
     </div>
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-tittle">Traslado 4</h2>
-          <div class="row">
-            <div class="col">
-              <i class="icon pressure-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Especie</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon vibration-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>veterinario</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <i class="icon temperature-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Institución</p>
-              </div>
-            </div>
-            <div class="col">
-              <i class="icon gasflow-icon"></i>
-              <div>
-                  <p>00</p>
-                  <p>Lugar</p>
-              </div>
-            </div>
-          </div>
-          
-        </div>
+    <div class="bg-white shadow rounded-2xl p-4">
+      <h2 class="text-lg font-bold mb-4">Traslado 4</h2>
+      <div class="grid grid-cols-2 gap-4 text-center">
+        <!-- Repite contenido con otros datos -->
       </div>
     </div>
-
   </div>
 </div>

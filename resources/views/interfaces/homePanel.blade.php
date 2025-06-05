@@ -36,12 +36,12 @@
           </a>
         </li>
         <li>
-          <a id="traslados-link" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a href="#" class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  data-ruta="{{ route('trasladosPanel') }}" data-titulo="Traslados">
             <i class="fas fa-truck"></i> <strong>Traslados</strong>
           </a>
         </li>
         <li>
-          <a id="crianza-link" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a href="#" class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer" data-ruta="{{ route('crianza.index') }}" data-titulo="Crianza">
             <i class="fas fa-paw"></i> <strong>Crianza</strong>
           </a>
         </li>
@@ -83,7 +83,7 @@
         <!--Cabecera de breadcums y busqueda-->
         <header class="flex justify-between items-center mb-4">
           <nav aria-label="breadcrumb" class="w-3/4">
-            <ol class="flex space-x-2 text-sm text-gray-700 dark:text-gray-200">
+            <ol id="breadcrumb-ol" class="flex space-x-2 text-sm text-gray-700 dark:text-gray-200">
               <li>
                 <a href="/homePanel" class="hover:underline">Panel de Inicio</a>
               </li>
@@ -111,10 +111,7 @@
   </div>
 
   <script>
-    var routePanelCrianza = "{{ route('crianza.index') }}";
-    var routePanelTraslados = "{{ route('trasladosPanel') }}";
-
-    // Opcional: toggle simple del menú de ajustes
+    // Toggle simple del menú de ajustes
     document.getElementById('dropdownUser2')?.addEventListener('click', () => {
       const menu = document.getElementById('settingsMenu');
       menu.classList.toggle('hidden');
