@@ -5,3 +5,6 @@ import '@fortawesome/fontawesome-free/js/all.js';
 import './appLayoutPanel.js';
 import './showFormU.js';
 import './theme.js';
+
+import Alpine from 'alpinejs'
+

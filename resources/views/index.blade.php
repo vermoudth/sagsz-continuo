@@ -20,8 +20,12 @@
   
   <main>
       <div class=" flex flex-col max-w items-center">
-        <h1 class="mx-1 my-2">SAGSZ</h1>
-        <h2 class="mx-1 my-2">Sistema de Administración de Gestión de Seguridad y Salud en el Trabajo</h2>
+        <!--Titulo de la pagina-->
+        <div class="text-center mb-4">
+            <h1 class="text-lg">SAGSZ</h1>
+            <h1 class="text-lg">Sistema de Administración de Gestión de Seguridad y Salud en el Trabajo</h1>
+        </div>
+
         <div class="columns-2 flex justify-evenly items-center">
             <!--Logo de SAGSZ-->
           <div class=" max-w-xl mx-auto">
@@ -33,7 +37,7 @@
 
 
           <!--Formulario de Inicio de Sesion-->
-          <div class="col-6">
+          <div class="text-center">
               <button id="formShow" class="bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 hover:bg-green-900" >Ingresar</button>
               
               
