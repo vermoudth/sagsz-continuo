@@ -1,13 +1,13 @@
 @if(session('success'))
-    <div id="alert" class="alert alert-success position-absolute bottom-0 end-0 p-3 rounded shadow" role="alert">
+    <div id="alert" class="fixed bottom-4 right-4 bg-green-100 text-green-800 px-4 py-3 rounded shadow-lg" role="alert">
         {{ session('success') }}
     </div>
 @elseif(session('error'))
-    <div id="alert" class="alert alert-danger position-absolute bottom-0 end-0 p-3 rounded shadow" role="alert">
+    <div id="alert" class="fixed bottom-4 right-4 bg-red-100 text-red-800 px-4 py-3 rounded shadow-lg" role="alert">
         {{ session('error') }}
     </div>
 @elseif(session('debug'))
-    <div id="alert" class="alert alert-info position-absolute bottom-0 end-0 p-3 rounded shadow" role="alert">
+    <div id="alert" class="fixed bottom-4 right-4 bg-blue-100 text-blue-800 px-4 py-3 rounded shadow-lg" role="alert">
         {{ session('debug') }}
     </div>
 @endif
