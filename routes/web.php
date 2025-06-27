@@ -41,8 +41,19 @@ Route::get('/animales/data', [FormAnimalController::class, 'getAnimalesData'])->
 Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
 
 //Ruta para Panel de Traslados
-Route::get('/trasladosPanel', [TrasladosController::class, 'index'])->name('trasladosPanel');
+Route::get('/trasladosPanel', function () {
+    if (request()->ajax()) {
+        return view('interfaces.trasladosPanel'); // solo el fragmento
+    }
+    return redirect('/homePanel'); // redirecciona si es acceso directo
+})->name('trasladosPanel');
+
 
 Route::get('/test-503', function () {
   abort(503);
 });
+
+// Ruta SPA: todo lo demás responde con el layout base
+Route::get('/{any}', function () {
+    return redirect('/homePanel');
+})->where('any', '.*');

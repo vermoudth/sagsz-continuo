@@ -30,8 +30,8 @@
   <!-- Cards de traslados -->
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
     <!-- Card ejemplo -->
-    <div class="bg-white shadow rounded-2xl p-4">
-      <h2 class="text-lg font-bold mb-4">Traslado 1</h2>
+    <div class="shadow rounded-2xl p-4">
+      <h2 class="text-lg text-whitefont-bold mb-4">Traslado 1</h2>
 
       <div class="grid grid-cols-2 gap-4 text-center">
         <div>

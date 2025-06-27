@@ -64,3 +64,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const path = window.location.pathname;
+
+  // Lista de rutas válidas
+  const rutasValidas = {
+    '/trasladosPanel': 'Traslados',
+    '/crianza': 'Crianza',
+    // Agrega aquí más si lo necesitas
+  };
+
+  if (rutasValidas[path]) {
+    cargarSeccion(path);
+
+    // Actualizar breadcrumb también
+    const breadcrumbOl = document.getElementById('breadcrumb-ol');
+    if (breadcrumbOl) {
+      breadcrumbOl.innerHTML = `
+        <li>
+          <a href="/homePanel" class="hover:underline">Panel de Inicio</a>
+        </li>
+        <li>/</li>
+        <li class="text-white-500 dark:text-white-300">${rutasValidas[path]}</li>
+      `;
+    }
+
+    document.getElementById('homePanel').style.display = 'block'; // o como manejes la visibilidad
+  }
+});
