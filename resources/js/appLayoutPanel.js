@@ -2,16 +2,20 @@ function cargarSeccion(ruta) {
   const contenedor = document.getElementById('contenido-dinamico');
   contenedor.innerHTML = '<div class="text-center p-4">Cargando...</div>';
 
-  fetch(ruta)
-    .then(response => response.text())
+  fetch(ruta, {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest' // Laravel detecta esto como AJAX
+    }
+  })
+  .then(response => response.text())
     .then(html => {
       contenedor.innerHTML = html;
       Alpine.initTree(contenedor);
 
-      // Añadir a historial del navegador
       window.history.pushState({ ruta }, '', ruta);
     })
     .catch(error => console.error('Error al cargar la sección:', error));
+
 }
 
 // Volver atrás con botones del navegador

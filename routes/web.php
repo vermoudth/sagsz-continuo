@@ -5,7 +5,6 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\FormAnimalController;
-use App\Http\Controllers\TrasladosController;
 use App\Http\Controllers\CrianzaController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -43,10 +42,13 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 //Ruta para Panel de Traslados
 Route::get('/trasladosPanel', function () {
     if (request()->ajax()) {
-        return view('interfaces.trasladosPanel'); // solo el fragmento
+        return view('interfaces.trasladosPanel'); // ✅ Solo el contenido parcial
     }
-    return redirect('/homePanel'); // redirecciona si es acceso directo
+
+    // ❌ Evita que se duplique
+    return redirect('/homePanel'); // O muestra un error elegante
 })->name('trasladosPanel');
+
 
 
 Route::get('/test-503', function () {
