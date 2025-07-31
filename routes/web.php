@@ -7,6 +7,11 @@ use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\CrianzaController;
 
+/*
+|--------------------------------------------------------------------------
+| Autenticación
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::post('/login', [IndexController::class, 'login'])->name('login');
 Route::post('/logout', [IndexController::class, 'logout'])->name('logout');
@@ -14,48 +19,63 @@ Route::post('/logout', [IndexController::class, 'logout'])->name('logout');
 Route::get('/register', [RegistrationController::class, 'show'])->name('auth.register');
 Route::post('/register', [RegistrationController::class, 'register'])->name('auth.register');
 
+/*
+|--------------------------------------------------------------------------
+| Panel Principal
+|--------------------------------------------------------------------------
+*/
 Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel');
 
-//Rutas de Panel de Crianza
-Route::get('/crianza', [CrianzaController::class, 'index'])->name('crianza.index');
-Route::get('/crianza/create', [CrianzaController::class, 'create'])->name('crianza.create');
-Route::post('/crianza', [CrianzaController::class, 'store'])->name('crianza.store');
-Route::get('/crianza/{id}', [CrianzaController::class, 'show'])->name('crianza.show');
-Route::get('/crianza/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
-Route::put('/crianza/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
-Route::delete('/crianza/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
-Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
-
-
-// Rutas para el manejo de animales
-Route::get('/animal', [FormAnimalController::class, 'create'])->name('animal.create');
-Route::post('/animal', [FormAnimalController::class, 'store'])->name('animal.store');
-
-// Ruta para mostrar la lista de animales
-Route::get('/animales', [FormAnimalController::class, 'index'])->name('panel.animales');
-Route::get('/animales/data', [FormAnimalController::class, 'getAnimalesData'])->name('animales.data');
-
-
-// Ruta para eliminar un animal
-Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
-
-//Ruta para Panel de Traslados
-Route::get('/trasladosPanel', function () {
-    if (request()->ajax()) {
-        return view('interfaces.trasladosPanel'); // ✅ Solo el contenido parcial
-    }
-
-    // ❌ Evita que se duplique
-    return redirect('/homePanel'); // O muestra un error elegante
-})->name('trasladosPanel');
-
-
-
-Route::get('/test-503', function () {
-  abort(503);
+/*
+|--------------------------------------------------------------------------
+| Módulo de Crianza
+|--------------------------------------------------------------------------
+*/
+Route::prefix('crianza')->group(function () {
+    Route::get('/', [CrianzaController::class, 'index'])->name('crianza.index');
+    Route::get('/create', [CrianzaController::class, 'create'])->name('crianza.create');
+    Route::post('/', [CrianzaController::class, 'store'])->name('crianza.store');
+    Route::get('/{id}', [CrianzaController::class, 'show'])->name('crianza.show');
+    Route::get('/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
+    Route::put('/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
+    Route::delete('/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 });
 
-// Ruta SPA: todo lo demás responde con el layout base
+Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
+
+/*
+|--------------------------------------------------------------------------
+| Módulo de Animales
+|--------------------------------------------------------------------------
+*/
+Route::get('/animal', [FormAnimalController::class, 'create'])->name('animal.create');
+Route::post('/animal', [FormAnimalController::class, 'store'])->name('animal.store');
+Route::get('/animales', [FormAnimalController::class, 'index'])->name('panel.animales');
+Route::get('/animales/data', [FormAnimalController::class, 'getAnimalesData'])->name('animales.data');
+Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
+
+/*
+|--------------------------------------------------------------------------
+| Panel de Traslados (SPA compatible)
+|--------------------------------------------------------------------------
+*/
+Route::get('/trasladosPanel', function () {
+    if (request()->ajax()) {
+        return view('interfaces.trasladosPanel');
+    }
+    return redirect('/homePanel');
+})->name('trasladosPanel');
+
+/*
+|--------------------------------------------------------------------------
+| Test y fallback
+|--------------------------------------------------------------------------
+*/
+Route::get('/test-503', function () {
+    abort(503);
+});
+
+// Fallback SPA: redirige cualquier otra ruta a homePanel
 Route::get('/{any}', function () {
     return redirect('/homePanel');
 })->where('any', '.*');

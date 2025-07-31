@@ -16,13 +16,6 @@
   <div class="flex w-full h-screen">
     <!--Barra de navegación-->
     <nav class="flex flex-col p-4 w-[18%] bg-gray-100 dark:bg-gray-800">
-      <!-- Toggle Dark/Light -->
-      <div class="mt-2">
-        <button id="darkModeToggle" class="border border-gray-400 rounded px-2 py-1 dark:border-gray-600">
-          <span id="themeIcon">🌙</span>
-        </button>
-      </div>
-
       <a href="/homePanel" class="flex items-center justify-evenly my-3 text-gray-800 dark:text-white">
         <img src="{{ asset('img/SAGSZ_logo.png') }}" class="rounded w-1/3" alt="Logo">
         <span class="text-xl font-bold">SAGSZ</span>
@@ -93,6 +86,12 @@
             <input class="w-full px-3 py-1 border border-gray-300 rounded-l dark:bg-gray-800 dark:text-white dark:border-gray-600" type="search" placeholder="Buscar">
             <button class="px-4 py-1 bg-green-600 text-white rounded-r hover:bg-green-700" type="submit">Buscar</button>
           </form>
+          <!-- Toggle Dark/Light -->
+          <div class="mt-2">
+            <button id="darkModeToggle" class="border border-gray-400 rounded px-2 py-1 dark:border-gray-600">
+              <span id="themeIcon">🌙</span>
+            </button>
+          </div>
         </header>
 
         <hr class="border-gray-300 dark:border-gray-600">

@@ -7,14 +7,20 @@ function cargarSeccion(ruta) {
       'X-Requested-With': 'XMLHttpRequest' // Laravel detecta esto como AJAX
     }
   })
-  .then(response => response.text())
+  .then(response => {
+      if (!response.ok) throw new Error('Error al cargar la sección');
+      return response.text();
+    })
     .then(html => {
       contenedor.innerHTML = html;
       Alpine.initTree(contenedor);
 
       window.history.pushState({ ruta }, '', ruta);
     })
-    .catch(error => console.error('Error al cargar la sección:', error));
+    .catch(error => {
+      console.error(error);
+      contenedor.innerHTML = '<div class="text-center text-red-500 p-4">Error al cargar la sección.</div>';
+    });
 
 }
 
@@ -33,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const ruta = this.dataset.ruta;
+
       cargarSeccion(ruta);
       document.getElementById('homePanel').style.display = 'none';
     });
@@ -75,6 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Lista de rutas válidas
   const rutasValidas = {
     '/trasladosPanel': 'Traslados',
+    '/crianza': 'Crianza',
+    '/laboratorio': 'Laboratorio',
     '/crianza': 'Crianza',
     // Agrega aquí más si lo necesitas
   };
