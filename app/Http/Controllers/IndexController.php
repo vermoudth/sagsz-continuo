@@ -16,56 +16,54 @@ class IndexController extends Controller
         return view('index', compact('welcomeMessage'));
     }
     public function login(Request $request)
-    {
-        try {
-            $request->validate([
-                'identificacion' => 'required|string|max:255',
-                'password' => 'required|string|min:8',
-            ]);
+{
+    try {
+        $request->validate([
+            'identificacion' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+        ], [
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'identificacion.required' => 'El usuario es obligatorio.',
+        ]);
 
-            // Intentar conexión con la base de datos
-            $user = DB::table('usuarios')
-                    ->where('identificacion', $request->identificacion)
-                    ->first();
+        // Intentar conexión con la base de datos
+        $user = DB::table('usuarios')
+                ->where('identificacion', $request->identificacion)
+                ->first();
 
-            // Verificar si la consulta falló (servidor caído)
-            if (!$user) {
-                session()->flash('error', 'Error: No se pudo conectar con el servidor.');
-                return back();
-            }
-
-            // Verificar si la contraseña es correcta con PostgreSQL `crypt()`
-            $passwordCheck = DB::selectOne("SELECT (password = crypt(?, password)) AS valid FROM usuarios WHERE identificacion = ?", 
-                [$request->password, $request->identificacion]
-            );
-
-            // Si el usuario existe y la contraseña es correcta
-            if ($passwordCheck && $passwordCheck->valid) {
-                Auth::loginUsingId($user->id);
-                $request->session()->regenerate();
-
-                // Guardamos un valor en la caché para el mensaje de bienvenida
-                Cache::put('welcome_message', '¡Bienvenido, ' . $user->identificacion . '!', 60); // 60 minutos
-
-                session()->flash('success', 'Inicio de sesión exitoso.');
-                return redirect()->route('homePanel');
-            }
-
-            // Si la contraseña es incorrecta
-            session()->flash('error', 'Credenciales incorrectas. Verifique su usuario y contraseña.');
-            return back()->onlyInput('identificacion');
-            
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Error de base de datos (posible falla de conexión)
-            session()->flash('error', 'No se pudo conectar con la base de datos. Intente más tarde.');
-            return back();
-            
-        } catch (\Exception $e) {
-            // Cualquier otro error inesperado
-            session()->flash('error', 'Error en el servidor: ' . $e->getMessage());
+        if (!$user) {
+            session()->flash('error', 'Error: No se pudo conectar con el servidor.');
             return back();
         }
+
+        $passwordCheck = DB::selectOne("SELECT (password = crypt(?, password)) AS valid FROM usuarios WHERE identificacion = ?", 
+            [$request->password, $request->identificacion]
+        );
+
+        if ($passwordCheck && $passwordCheck->valid) {
+            Auth::loginUsingId($user->id);
+            $request->session()->regenerate();
+
+            Cache::put('welcome_message', '¡Bienvenido, ' . $user->identificacion . '!', 60);
+
+            session()->flash('success', 'Inicio de sesión exitoso.');
+            return redirect()->route('homePanel');
+        }
+
+        session()->flash('error', 'Credenciales incorrectas. Verifique su usuario y contraseña.');
+        return back()->onlyInput('identificacion');
+        
+    } catch (\Illuminate\Database\QueryException $e) {
+        session()->flash('error', 'No se pudo conectar con la base de datos. Intente más tarde.');
+        return back();
+        
+    } catch (\Exception $e) {
+        session()->flash('error', 'Error en el servidor: ' . $e->getMessage());
+        return back();
     }
+}
+
 
     public function logout(Request $request)
     {

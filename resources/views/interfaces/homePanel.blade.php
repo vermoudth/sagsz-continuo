@@ -54,7 +54,7 @@
 
       <!-- Botón de ajustes y cerrar sesión -->
       <div class="relative">
-        <button class="flex items-center gap-2 text-gray-700 dark:text-white" id="dropdownUser2">
+        <button class="flex items-center gap-2 hover:text-blue-600 cursor-pointer" id="dropdownUser2">
           <i class="fa-solid fa-gear"></i> <strong>Ajustes</strong>
         </button>
         <ul class="absolute hidden mt-2 bg-white dark:bg-gray-800 text-sm rounded shadow-md w-40" id="settingsMenu">
@@ -86,12 +86,6 @@
             <input class="w-full px-3 py-1 border border-gray-300 rounded-l dark:bg-gray-800 dark:text-white dark:border-gray-600" type="search" placeholder="Buscar">
             <button class="px-4 py-1 bg-green-600 text-white rounded-r hover:bg-green-700" type="submit">Buscar</button>
           </form>
-          <!-- Toggle Dark/Light -->
-          <div class="mt-2">
-            <button id="darkModeToggle" class="border border-gray-400 rounded px-2 py-1 dark:border-gray-600">
-              <span id="themeIcon">🌙</span>
-            </button>
-          </div>
         </header>
 
         <hr class="border-gray-300 dark:border-gray-600">
