@@ -62,53 +62,88 @@
 
   <!-- Filtro de categorías (JS dinámico) -->
 <div class="mb-4">
-    <div class="flex">
-        <div class="w-full">
-            <select class="form-select block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" id="filtro-categoria">
-                <option value="">Todas las Categorías</option>
-                <option value="Aves">Aves</option>
-                <option value="Mamíferos">Mamíferos</option>
-                <option value="Herpetofauna">Herpetofauna</option>
-                <option value="Acuario">Acuario</option>
-            </select>
-        </div>
+  <div class="flex">
+    <div class="w-full">
+      <select 
+        id="filtro-categoria"
+        class="block w-full bg-gray-800 text-white border border-gray-600 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200/50 px-3 py-2 transition-colors duration-200"
+      >
+        <option value="">Todas las Categorías</option>
+        <option value="Aves">Aves</option>
+        <option value="Mamíferos">Mamíferos</option>
+        <option value="Herpetofauna">Herpetofauna</option>
+        <option value="Acuario">Acuario</option>
+      </select>
     </div>
+  </div>
 </div>
 
+
   <!-- Cards para mostrar las crianzas -->
-  <div class="flex flex-wrap -mx-2" id="contenedor-crianza">
-      @foreach($crianzas as $crianza)
-          <div class="w-full md:w-1/3 px-2 mb-4">
-              <div class="bg-white rounded shadow p-4" data-categoria="{{ $crianza->animal->categoria }}">
-                  <div class="card-body">
-                      <h5 class="text-lg font-semibold mb-2">{{ $crianza->animal->nombre }}</h5>
-                      <p class="text-gray-700 text-sm mb-2">
-                          Fecha de Registro: {{ \Carbon\Carbon::parse($crianza->fecha)->format('d/m/Y') }}<br>
-                          Descripción: {{ Str::limit($crianza->descripcion, 50) }} <br>
-                          Fecha: {{ $crianza->fecha }} <br>
-                          Responsable: {{ $crianza->responsable->nombre }} <br>
-                      </p>
+<div class="flex flex-wrap -mx-2 font-sans text-white" id="contenedor-crianza">
+    @foreach($crianzas as $crianza)
+        <div class="w-full md:w-1/3 px-2 mb-4">
+            <div class="bg-gray-600 rounded shadow p-4 space-y-3" data-categoria="{{ $crianza->animal->categoria }}">
+                <div class="card-body">
+                    <h5 class="text-xl font-bold mb-2">{{ $crianza->animal->nombre }}</h5>
 
-                      <button class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded text-xs edit-btn"
-                          data-id="{{ $crianza->id }}"
-                          data-animal="{{ $crianza->animal_id }}"
-                          data-descripcion="{{ $crianza->descripcion }}"
-                          data-fecha="{{ $crianza->fecha }}"
-                          data-responsable="{{ $crianza->responsable_id }}"
-                          data-bs-toggle="modal" data-bs-target="#editModal">
-                          Editar
-                      </button>
+                    <p class="text-sm space-y-1">
+                        <span class="flex items-center gap-2">
+                            <!-- Icono calendario -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M4 11h16M4 19h16M4 15h16M4 7h16" />
+                            </svg>
+                            Fecha de Registro: {{ \Carbon\Carbon::parse($crianza->fecha)->format('d/m/Y') }}
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <!-- Icono comentario -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0-4.418-4.03-8-9-8S3 7.582 3 12s4.03 8 9 8c1.55 0 3-.354 4.243-.98l3.514.727a1 1 0 001.212-1.212l-.727-3.514A7.963 7.963 0 0021 12z" />
+                            </svg>
+                            Descripción: {{ Str::limit($crianza->descripcion, 50) }}
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <!-- Icono reloj -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M12 2a10 10 0 100 20 10 10 0 000-20z" />
+                            </svg>
+                            Fecha: {{ $crianza->fecha }}
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <!-- Icono usuario -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.577 0 4.97.733 6.879 1.993M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Responsable: {{ $crianza->responsable->nombre }}
+                        </span>
+                    </p>
 
-                      <form action="{{ route('crianza.destroy', $crianza->id) }}" method="POST" class="inline">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">Eliminar</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      @endforeach
-  </div>
+                    <div class="flex gap-4 mt-4">
+                        <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-11 rounded text-sm edit-btn"
+                        @click="$dispatch('open-edit-modal')"
+                            data-id="{{ $crianza->id }}"
+                            data-animal="{{ $crianza->animal_id }}"
+                            data-descripcion="{{ $crianza->descripcion }}"
+                            data-fecha="{{ $crianza->fecha }}"
+                            data-responsable="{{ $crianza->responsable_id }}"
+                            data-bs-toggle="modal" data-bs-target="#editModal">
+                            Editar
+                        </button>
+
+                        <form action="{{ route('crianza.destroy', $crianza->id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-11 rounded text-sm" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
 
   <!-- Paginación -->
   <div class="flex justify-center mt-4">
@@ -118,57 +153,80 @@
 
 
 <!-- Modal para Editar Crianza -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="editModalLabel">Editar Crianza</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <form id="editForm" method="POST"  action="{{ route('crianza.update', $crianza->id) }}">
-                  @csrf
-                  @method('PUT') <!-- Método PUT para actualización -->
+<div 
+    x-data="{ showEdit: false, formData: {} }"
+    x-show="showEdit" 
+    class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+    @open-edit-modal.window="
+        showEdit = true;
+        formData = $event.detail;
+        $nextTick(() => {
+            document.getElementById('editForm').action = `/crianza/${formData.id}`;
+            document.getElementById('edit_animal_id').value = formData.animal;
+            document.getElementById('edit_descripcion').value = formData.descripcion;
+            document.getElementById('edit_fecha').value = formData.fecha;
+            document.getElementById('edit_responsable_id').value = formData.responsable;
+        })
+    "
+    x-cloak
+>
+    <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
+        <h2 class="text-lg font-semibold mb-4 text-white">Editar Crianza</h2>
+        <form id="editForm" method="POST">
+            @csrf
+            @method('PUT')
 
-                  <!-- Campo Animal -->
-                  <div class="mb-3">
-                      <label for="edit_animal_id" class="form-label">Animal</label>
-                      <select class="form-select" name="animal_id" id="edit_animal_id" required>
-                          @foreach($animales as $animal)
-                              <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
-                          @endforeach
-                      </select>
-                  </div>
+            <!-- Animal -->
+            <div class="mb-4">
+                <label for="edit_animal_id" class="block text-gray-300 font-medium mb-2">Animal</label>
+                <select id="edit_animal_id" name="animal_id" required
+                    class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <option value="">Seleccionar Animal</option>
+                    @foreach($animales as $animal)
+                        <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-                  <!-- Campo Descripción -->
-                  <div class="mb-3">
-                      <label for="edit_descripcion" class="form-label">Descripción</label>
-                      <textarea class="form-control" name="descripcion" id="edit_descripcion" rows="3" required></textarea>
-                  </div>
+            <!-- Descripción -->
+            <div class="mb-4">
+                <label for="edit_descripcion" class="block text-gray-300 font-medium mb-2">Descripción</label>
+                <textarea id="edit_descripcion" name="descripcion" rows="3" required
+                    class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
+            </div>
 
-                  <!-- Campo Fecha -->
-                  <div class="mb-3">
-                      <label for="edit_fecha" class="form-label">Fecha</label>
-                      <input type="date" class="form-control" name="fecha" id="edit_fecha" required>
-                  </div>
+            <!-- Fecha -->
+            <div class="mb-4">
+                <label for="edit_fecha" class="block text-gray-300 font-medium mb-2">Fecha</label>
+                <input type="date" id="edit_fecha" name="fecha" required
+                    class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            </div>
 
-                  <!-- Campo Responsable -->
-                  <div class="mb-3">
-                      <label for="edit_responsable_id" class="form-label">Responsable</label>
-                      <select class="form-select" name="responsable_id" required>
-                          <option value="">Seleccionar Responsable</option>
-                          @foreach($usuarios as $usuario)
-                              <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
-                          @endforeach
-                      </select>
-                  </div>
+            <!-- Responsable -->
+            <div class="mb-4">
+                <label for="edit_responsable_id" class="block text-gray-300 font-medium mb-2">Responsable</label>
+                <select id="edit_responsable_id" name="responsable_id" required
+                    class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                    <option value="">Seleccionar Responsable</option>
+                    @foreach($usuarios as $usuario)
+                        <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-                  <button type="submit" class="btn btn-primary">Actualizar</button>
-              </form>
-          </div>
-      </div>
-  </div>
+            <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+                Actualizar
+            </button>
+        </form>
+
+        <button @click="showEdit = false"
+            class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+            Cancelar
+        </button>
+    </div>
 </div>
+
+
 
 
 <script>

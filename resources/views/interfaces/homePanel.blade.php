@@ -29,7 +29,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  data-ruta="{{ route('trasladosPanel') }}" data-titulo="Traslados">
+          <a disable href="#" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  data-ruta="{{ route('trasladosPanel') }}" data-titulo="Traslados">
             <i class="fas fa-truck"></i> <strong>Traslados</strong>
           </a>
         </li>
@@ -39,12 +39,12 @@
           </a>
         </li>
         <li>
-          <a id="lab-link" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a disable id="lab-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fa-solid fa-flask"></i> <strong>Laboratorio</strong>
           </a>
         </li>
         <li>
-          <a id="nutri-link" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a id="nutri-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fa-solid fa-heart"></i> <strong>Nutrición</strong>
           </a>
         </li>
@@ -86,6 +86,8 @@
             <input class="w-full px-3 py-1 border border-gray-300 rounded-l dark:bg-gray-800 dark:text-white dark:border-gray-600" type="search" placeholder="Buscar">
             <button class="px-4 py-1 bg-green-600 text-white rounded-r hover:bg-green-700" type="submit">Buscar</button>
           </form>
+          <!-- Toggle Dark/Light -->
+          
         </header>
 
         <hr class="border-gray-300 dark:border-gray-600">
