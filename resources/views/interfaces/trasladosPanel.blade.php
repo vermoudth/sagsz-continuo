@@ -1,4 +1,4 @@
-<div class="w-full p-4 space-y-6">
+<div class="w-full p-4 space-y-6" >
   <!-- Estadísticas generales -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
     <div>

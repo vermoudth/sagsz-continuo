@@ -11,11 +11,7 @@
 <body>
     @include('components.alert')
     <!-- Toggle Dark/Light -->
-    <div class="me-3 mt-2">
-        <button id="darkModeToggle" class="btn btn-outline-secondary border-0">
-        <span id="themeIcon">🌙</span>
-        </button>
-    </div>
+    
   
   
   <main>
