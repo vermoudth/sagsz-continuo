@@ -11,11 +11,25 @@ use App\Models\User;
 class CrianzaController extends Controller
 {
      // Mostrar todas las crianzas
-    public function index()
-    {   $animales = Animal::all();
+    public function index( Request $request)
+    {   
+        $animales = Animal::all();
         $usuarios = User::all();
         $crianzas = Crianza::with(['animal', 'responsable'])->paginate(10);
-        return view('interfaces.crianzaPanel', compact('usuarios','animales','crianzas'));
+        if ($request->ajax()) {
+            // Petición AJAX: devolver solo la vista parcial (sin layout)
+            return view('interfaces.crianzaPanel', compact('usuarios','animales','crianzas'));
+        } else {
+            // Petición normal (recarga o acceso directo)
+            // Layout completo con el módulo cargado dinámicamente
+                return view('interfaces.homePanel', [
+                    'modulo' => 'crianza',
+                    'usuarios' => $usuarios,
+                    'animales' => $animales,
+                    'crianzas' => $crianzas,
+                ]);
+        }
+    
     }
 
     // Mostrar el formulario de creación

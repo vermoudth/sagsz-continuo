@@ -24,17 +24,24 @@
 
       <ul class="flex flex-col gap-2">
         <li>
-          <a href="/homePanel" id="inicio-link" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a 
+          href="/homePanel" 
+          class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fas fa-home"></i> <strong>Inicio</strong>
           </a>
         </li>
         <li>
-          <a disable href="#" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  data-ruta="{{ route('trasladosPanel') }}" data-titulo="Traslados">
+          <a disable 
+          href="#" 
+          class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed" 
+          class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  
+          data-ruta="{{ route('trasladosPanel') }}" 
+          data-titulo="Traslados">
             <i class="fas fa-truck"></i> <strong>Traslados</strong>
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer" data-ruta="{{ route('crianza.index') }}" data-titulo="Crianza">
+          <a href="/crianza" onclick="event.preventDefault(); cargarSeccion('/crianza')">
             <i class="fas fa-paw"></i> <strong>Crianza</strong>
           </a>
         </li>
@@ -92,15 +99,20 @@
 
         <hr class="border-gray-300 dark:border-gray-600">
 
-        <!--Contenido de Inicio-->
-        <div id="homePanel" class="text-center">
-          <h1 class="text-3xl font-bold">Panel de Control</h1>
-          <p class="mt-2">Bienvenido al panel de control de la aplicación.</p>
-          <img src="{{ asset('img/SAGSZ_logo.png') }}" class="mx-auto mt-4 w-1/3 rounded" alt="Logo">
+        <!-- Contenido de Inicio -->
+        <div id="homePanel" style="{{ isset($modulo) ? 'display:none;' : '' }}">
+            <h1 class="text-3xl font-bold">Panel de Control</h1>
+            <p class="mt-2">Bienvenido al panel de control de la aplicación.</p>
+            <img src="{{ asset('img/SAGSZ_logo.png') }}" class="mx-auto mt-4 w-1/3 rounded" alt="Logo">
         </div>
 
-        <!--Contenido Dinámico-->
-        <div id="contenido-dinamico" class="flex flex-col items-center justify-center mt-4"></div>
+        <!-- Contenido Dinámico -->
+        <div id="contenido-dinamico" class="flex flex-col items-center justify-center mt-4">
+            @if(isset($modulo))
+                @include('interfaces.' . $modulo . 'Panel') {{-- Esto incluirá crianzaPanel.blade.php --}}
+            @endif
+        </div>
+        
       </main>
     </div>
   </div>

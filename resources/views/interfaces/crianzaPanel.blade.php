@@ -60,7 +60,7 @@
     </div>
   </div>
 
-  <!-- Filtro de categorías (JS dinámico) -->
+  <!-- Filtro de categorías (JS dinámico) 
 <div class="mb-4">
   <div class="flex">
     <div class="w-full">
@@ -76,7 +76,7 @@
       </select>
     </div>
   </div>
-</div>
+</div>-->
 
 
   <!-- Cards para mostrar las crianzas -->
@@ -119,14 +119,16 @@
                     </p>
 
                     <div class="flex gap-4 mt-4">
-                        <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-11 rounded text-sm edit-btn"
-                        @click="$dispatch('open-edit-modal')"
-                            data-id="{{ $crianza->id }}"
-                            data-animal="{{ $crianza->animal_id }}"
-                            data-descripcion="{{ $crianza->descripcion }}"
-                            data-fecha="{{ $crianza->fecha }}"
-                            data-responsable="{{ $crianza->responsable_id }}"
-                            data-bs-toggle="modal" data-bs-target="#editModal">
+                        <button 
+                            @click="$dispatch('open-edit-modal', {
+                                id: {{ $crianza->id }},
+                                animal: {{ $crianza->animal_id }},
+                                descripcion: '{{ addslashes($crianza->descripcion) }}',
+                                fecha: '{{ $crianza->fecha }}',
+                                responsable_id: {{ $crianza->responsable_id }}
+                            })"
+                            class="edit-btn bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-11 rounded text-sm"
+                            >
                             Editar
                         </button>
 
@@ -153,37 +155,26 @@
 
 
 <!-- Modal para Editar Crianza -->
-<div 
-    x-data="{ showEdit: false, formData: {} }"
-    x-show="showEdit" 
+<div @open-edit-modal.window="abrirModal($event.detail)"
+    x-data="editarCrianza()" 
+     x-show="abierto" 
     class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
-    @open-edit-modal.window="
-        showEdit = true;
-        formData = $event.detail;
-        $nextTick(() => {
-            document.getElementById('editForm').action = `/crianza/${formData.id}`;
-            document.getElementById('edit_animal_id').value = formData.animal;
-            document.getElementById('edit_descripcion').value = formData.descripcion;
-            document.getElementById('edit_fecha').value = formData.fecha;
-            document.getElementById('edit_responsable_id').value = formData.responsable;
-        })
-    "
     x-cloak
 >
     <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
         <h2 class="text-lg font-semibold mb-4 text-white">Editar Crianza</h2>
-        <form id="editForm" method="POST">
+        <form :action="`/crianza/${formData.id}`" method="POST" id="editForm">
             @csrf
             @method('PUT')
 
             <!-- Animal -->
             <div class="mb-4">
-                <label for="edit_animal_id" class="block text-gray-300 font-medium mb-2">Animal</label>
-                <select id="edit_animal_id" name="animal_id" required
+                <label class="block text-gray-300 font-medium mb-2">Animal</label>
+                <select name="animal_id" x-model="formData.animal_id" required
                     class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     <option value="">Seleccionar Animal</option>
-                    @foreach($animales as $animal)
-                        <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                    @foreach ($animales as $animal)
+                        <option :selected="formData.animal_id == {{ $animal->id }}" value="{{ $animal->id }}">{{ $animal->nombre }}</option>
                     @endforeach
                 </select>
             </div>
@@ -191,72 +182,42 @@
             <!-- Descripción -->
             <div class="mb-4">
                 <label for="edit_descripcion" class="block text-gray-300 font-medium mb-2">Descripción</label>
-                <textarea id="edit_descripcion" name="descripcion" rows="3" required
+                <input type="text" x-model="formData.descripcion" name="descripcion" rows="3" required
                     class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></textarea>
             </div>
 
             <!-- Fecha -->
             <div class="mb-4">
-                <label for="edit_fecha" class="block text-gray-300 font-medium mb-2">Fecha</label>
-                <input type="date" id="edit_fecha" name="fecha" required
+                <label class="block text-gray-300 font-medium mb-2">Fecha</label>
+                <input type="date" x-model="formData.fecha" name="fecha" required
                     class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
             </div>
 
             <!-- Responsable -->
             <div class="mb-4">
-                <label for="edit_responsable_id" class="block text-gray-300 font-medium mb-2">Responsable</label>
-                <select id="edit_responsable_id" name="responsable_id" required
+                <label class="block text-gray-300 font-medium mb-2">Responsable</label>
+                <select name="responsable_id" x-model="formData.responsable_id" required
                     class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     <option value="">Seleccionar Responsable</option>
                     @foreach($usuarios as $usuario)
-                        <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                        <option :selected="formData.responsable_id == {{ $usuario->id }}" value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
                     @endforeach
                 </select>
             </div>
-
+            <!-- Botones -->
             <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition">
                 Actualizar
             </button>
-        </form>
-
-        <button @click="showEdit = false"
+            <button @click="showEdit = false"
             class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
             Cancelar
         </button>
+        </form>
     </div>
 </div>
 
 
-
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      const editModal = document.getElementById('editModal');
-      const editForm = document.getElementById('editForm');
-      const editAnimal = document.getElementById('edit_animal_id');
-      const editDescripcion = document.getElementById('edit_descripcion');
-      const editFecha = document.getElementById('edit_fecha');
-      const editResponsable = document.getElementById('edit_responsable_id');
-  
-      document.querySelectorAll('.edit-btn').forEach(button => {
-          button.addEventListener('click', function() {
-              const crianzaId = this.getAttribute('data-id');
-              const animalId = this.getAttribute('data-animal');
-              const descripcion = this.getAttribute('data-descripcion');
-              const fecha = this.getAttribute('data-fecha');
-              const responsableId = this.getAttribute('data-responsable');
-  
-              editForm.action = `/crianza/${crianzaId}`; // Ruta de actualización
-              editAnimal.value = animalId;
-              editDescripcion.value = descripcion;
-              editFecha.value = fecha;
-              editResponsable.value = responsableId;
-          });
-      });
-  });
-  </script>
-  
-  <script>
     document.addEventListener("DOMContentLoaded", function () {
         const filtroCategorias = document.getElementById("filtro-categoria");
     
@@ -275,5 +236,30 @@
             });
         });
     });
-    </script>
+</script>
+
+<script>
+    function editarCrianza() {
+        return {
+            abierto: false,
+            form: {
+                id: null,
+                animal_id: '',
+                descripcion: '',
+                fecha: '',
+                responsable_id: '',
+            },
+            openModal(data) {
+                this.showEdit = true;
+                this.formData = {
+                    id: data.id,
+                    animal_id: data.animal,
+                    descripcion: data.descripcion,
+                    fecha: data.fecha,
+                    responsable_id: data.responsable
+                };
+            }
+        }
+    }
+</script>
 
