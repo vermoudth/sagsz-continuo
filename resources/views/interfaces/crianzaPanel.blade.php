@@ -155,9 +155,11 @@
 
 
 <!-- Modal para Editar Crianza -->
-<div @open-edit-modal.window="abrirModal($event.detail)"
+<div 
+    @open-edit-modal.window="abrirModal($event.detail)"
+    x-init="$watch('abierto', value => { if (!value) formData = { id: null, animal_id: '', descripcion: '', fecha: '', responsable_id: '' }; })"
     x-data="editarCrianza()" 
-     x-show="abierto" 
+    x-show="abierto" 
     class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
     x-cloak
 >
@@ -174,7 +176,7 @@
                     class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     <option value="">Seleccionar Animal</option>
                     @foreach ($animales as $animal)
-                        <option :selected="formData.animal_id == {{ $animal->id }}" value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                        <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
                     @endforeach
                 </select>
             </div>
@@ -200,7 +202,7 @@
                     class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
                     <option value="">Seleccionar Responsable</option>
                     @foreach($usuarios as $usuario)
-                        <option :selected="formData.responsable_id == {{ $usuario->id }}" value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                        <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
                     @endforeach
                 </select>
             </div>
@@ -208,7 +210,7 @@
             <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition">
                 Actualizar
             </button>
-            <button @click="showEdit = false"
+            <button @click="abierto = false"
             class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
             Cancelar
         </button>
@@ -218,7 +220,7 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+ /*   document.addEventListener("DOMContentLoaded", function () {
         const filtroCategorias = document.getElementById("filtro-categoria");
     
         filtroCategorias.addEventListener("change", function () {
@@ -235,31 +237,6 @@
                 }
             });
         });
-    });
-</script>
-
-<script>
-    function editarCrianza() {
-        return {
-            abierto: false,
-            form: {
-                id: null,
-                animal_id: '',
-                descripcion: '',
-                fecha: '',
-                responsable_id: '',
-            },
-            openModal(data) {
-                this.showEdit = true;
-                this.formData = {
-                    id: data.id,
-                    animal_id: data.animal,
-                    descripcion: data.descripcion,
-                    fecha: data.fecha,
-                    responsable_id: data.responsable
-                };
-            }
-        }
-    }
+    });*/
 </script>
 
