@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js' , 'resources/js/appLayoutPanel.js'])
     <title>Panel de Control</title>
 </head>
+
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
   {{-- Muestra las alertas de sesión --}}
   @if(session('success') || session('error') || session('debug'))
@@ -93,14 +94,13 @@
             <input class="w-full px-3 py-1 border border-gray-300 rounded-l dark:bg-gray-800 dark:text-white dark:border-gray-600" type="search" placeholder="Buscar">
             <button class="px-4 py-1 bg-green-600 text-white rounded-r hover:bg-green-700" type="submit">Buscar</button>
           </form>
-          <!-- Toggle Dark/Light -->
           
         </header>
 
         <hr class="border-gray-300 dark:border-gray-600">
 
         <!-- Contenido de Inicio -->
-        <div id="homePanel" style="{{ isset($modulo) ? 'display:none;' : '' }}">
+        <div id="homePanel" class="text-center" style="{{ isset($modulo) ? 'display:none;' : '' }}">
             <h1 class="text-3xl font-bold">Panel de Control</h1>
             <p class="mt-2">Bienvenido al panel de control de la aplicación.</p>
             <img src="{{ asset('img/SAGSZ_logo.png') }}" class="mx-auto mt-4 w-1/3 rounded" alt="Logo">

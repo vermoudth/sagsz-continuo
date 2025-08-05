@@ -50,7 +50,7 @@ class CrianzaController extends Controller
 
         Crianza::create($request->all());
 
-        return redirect()->route('homePanel')->with('success', 'Registro de crianza agregado exitosamente.');
+        return redirect()->route('crianza.index')->with('success', 'Registro de crianza agregado exitosamente.');
     }
 
     // Mostrar detalles de una crianza específica
@@ -77,16 +77,21 @@ class CrianzaController extends Controller
         $crianza->responsable_id = $request->responsable_id;
         $crianza->save();
 
-        return redirect()->back()->with('success', 'Crianza actualizada correctamente.');
+        return redirect()->route('crianza.index')->with('success', 'Registro actualizado correctamente');
+
     }
 
     // Eliminar una crianza
     public function destroy($id)
     {
-        $crianza = Crianza::findOrFail($id);
-        $crianza->delete();
+        try {
+            $crianza = Crianza::findOrFail($id);
+            $crianza->delete();
 
-        return redirect()->route('homePanel')->with('success', 'Registro de crianza eliminado correctamente.');
+            return redirect()->route('crianza.index')->with('success', 'Registro de crianza eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('crianza.index')->with('error', 'Error al eliminar el registro de crianza.');
+        }
     }
 
     public function filtrar(Request $request)
