@@ -2,7 +2,24 @@
 @vite(['resources/js/app.js'])
 
 <!-- Contenedor principal con Tailwind -->
-<div class="w-full mt-2 flex flex-col items-center">
+<div class="w-full max-w-7xl mx-auto px-4 mt-2 flex flex-col items-center"
+ x-data="{
+    filtrarCategoria() {
+      const categoriaId = document.getElementById('filtro-categoria').value;
+      const url = `/crianza?categoria_id=${categoriaId}`;
+
+      fetch(url, {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('contenedor-crianza-panel').innerHTML = html;
+      });
+    }
+  }">
+  <!-- Título de la sección -->
   <div class="w-full max-w-6xl px-4">
     <!-- Botón para añadir nueva crianza y título -->
     <div class="p-4 flex flex-row justify-between items-center w-full max-w-6xl">
@@ -68,28 +85,20 @@
     </div>
 
     <!-- Filtro de categorías -->
-    <div class="mb-4">
-      <div class="flex">
-        <div class="w-full">
-          <select 
-            id="filtro-categoria"
-            class="block w-full bg-gray-800 text-white border border-gray-600 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200/50 px-3 py-2 transition-colors duration-200"
-          >
-            <option value="">Todas las Categorías</option>
-            <option value="Aves">Aves</option>
-            <option value="Mamíferos">Mamíferos</option>
-            <option value="Herpetofauna">Herpetofauna</option>
-            <option value="Acuario">Acuario</option>
-          </select>
-        </div>
-      </div>
+    <div class="flex justify-end mb-4">
+        <select id="filtro-categoria" class="border rounded px-3 py-2" @change="filtrarCategoria">
+            <option value="">Todas las categorías</option>
+            @foreach ($categorias as $categoria)
+                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+            @endforeach
+        </select>
     </div>
 
     <!-- Cards para mostrar las crianzas -->
-    <div class="flex flex-wrap -mx-2 font-sans text-white" id="contenedor-crianza">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="contenedor-crianza-panel">
       @foreach($crianzas as $crianza)
-        <div class="w-full md:w-1/3 px-2 mb-4">
-          <div class="bg-gray-600 rounded shadow p-4 space-y-3" data-categoria="{{ $crianza->animal->categoria }}">
+        <div class="shadow-md rounded-lg overflow-hidden">
+          <div class="bg-gray-600 rounded shadow p-2 space-y-3" data-categoria="{{ $crianza->animal->categoria }}">
             <div class="card-body">
               <h5 class="text-xl font-bold mb-2">{{ $crianza->animal->nombre }}</h5>
               <p class="text-sm space-y-1">
@@ -149,8 +158,8 @@
     </div>
 
     <!-- Paginación -->
-    <div class="flex justify-center mt-4">
-      {{ $crianzas->links() }} <!-- Esto genera la paginación, ahora centrada con Tailwind -->
+    <div class="flex justify-center mt-4 pagination">
+      {{ $crianzas->appends(['categoria_id' => request('categoria_id')])->links() }} <!-- Esto genera la paginación, ahora centrada con Tailwind -->
     </div>
 
     <!-- Modal para eliminar crianza -->

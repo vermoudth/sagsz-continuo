@@ -6,19 +6,32 @@ use Illuminate\Http\Request;
 use App\Models\Crianza;
 use App\Models\Animal;
 use App\Models\User;
+use App\Models\CategoriaAnimal;
 
 
 class CrianzaController extends Controller
 {
-     // Mostrar todas las crianzas
+    // Mostrar todas las crianzas
     public function index( Request $request)
     {   
         $animales = Animal::all();
         $usuarios = User::all();
-        $crianzas = Crianza::with(['animal', 'responsable'])->paginate(10);
+        $categorias = CategoriaAnimal::all();
+
+        // Filtro de categoría (opcional)
+        $categoriaId = $request->input('categoria_id');
+
+        $crianzas = Crianza::with(['animal.categoria', 'responsable'])
+            ->when($categoriaId, function ($query, $categoriaId) {
+                $query->whereHas('animal', function ($q) use ($categoriaId) {
+                    $q->where('categoria_id', $categoriaId);
+                });
+            })
+            ->paginate(3);
+
         if ($request->ajax()) {
             // Petición AJAX: devolver solo la vista parcial (sin layout)
-            return view('interfaces.crianzaPanel', compact('usuarios','animales','crianzas'));
+            return view('interfaces.crianzaPanel', compact('usuarios','animales','crianzas', 'categorias'));
         } else {
             // Petición normal (recarga o acceso directo)
             // Layout completo con el módulo cargado dinámicamente
@@ -27,6 +40,7 @@ class CrianzaController extends Controller
                     'usuarios' => $usuarios,
                     'animales' => $animales,
                     'crianzas' => $crianzas,
+                    'categorias' => $categorias,
                 ]);
         }
     
@@ -103,6 +117,5 @@ class CrianzaController extends Controller
 
         return view('partials.crianzaCards', compact('crianzas'));
     }
-
 
 }
