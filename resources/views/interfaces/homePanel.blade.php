@@ -107,7 +107,7 @@
         </div>
 
         <!-- Contenido Dinámico -->
-        <div id="contenido-dinamico" class="flex flex-col items-center justify-center mt-4">
+        <div id="contenido-dinamico">
             @if(isset($modulo))
                 @include('interfaces.' . $modulo . 'Panel') {{-- Esto incluirá crianzaPanel.blade.php --}}
             @endif
