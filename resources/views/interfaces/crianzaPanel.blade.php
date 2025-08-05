@@ -15,7 +15,12 @@
           Añadir Crianza
         </button>
         <!-- Modal para añadir crianza -->
-        <div x-show="showAdd" class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50">
+        <div 
+          x-show="showAdd" 
+          class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+          x-cloak
+          @click.outside="showAdd = false"
+          >
           <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
             <h2 class="text-lg font-semibold mb-4 text-white">Añadir Crianza</h2>
             <form action="{{ route('crianza.store') }}" method="POST">
@@ -152,8 +157,11 @@
     <div 
       x-data="{ abierto: false }"
       @open-delete-modal.window="abierto = true; id = $event.detail.id"
-      x-show="abierto" 
-      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50">
+      x-show="abierto"
+      x-cloak
+      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+       @click.outside="abierto = false"
+      >
       <div class="bg-gray-800 rounded-lg p-6 shadow-lg max-w-md w-full border-gray-700">
         <h2 class="text-lg font-semibold text-white mb-4">¿Estás seguro de que deseas eliminar este registro?</h2>
         <div class="flex justify-end gap-4">
@@ -180,9 +188,10 @@
       @open-edit-modal.window="abrirModal($event.detail)"
       x-init="$watch('abierto', value => { if (!value) formData = { id: null, animal_id: '', descripcion: '', fecha: '', responsable_id: '' }; })"
       x-data="window.editarCrianza ? editarCrianza() : {}" 
-      x-show="abierto" 
-      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+      x-show="abierto"
       x-cloak
+      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+       @click.outside="abierto = false"  
       >
       <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
         <h2 class="text-lg font-semibold mb-4 text-white">Editar Crianza</h2>
