@@ -40,12 +40,6 @@ class CrianzaController extends Controller
     
     }
 
-    // Mostrar el formulario de creación
-    public function create()
-    {
-        return view('interfaces.crianzaPanel');
-    }
-
     // Guardar una nueva crianza
     public function store(Request $request)
     {
@@ -59,20 +53,6 @@ class CrianzaController extends Controller
         Crianza::create($request->all());
 
         return redirect()->route('crianza.index')->with('success', 'Registro de crianza agregado exitosamente.');
-    }
-
-    // Mostrar detalles de una crianza específica
-    public function show($id)
-    {
-        $crianza = Crianza::with(['animal', 'responsable'])->findOrFail($id);
-        return view('interfaces.crianzaPanel', compact('crianza'));
-    }
-
-    // Mostrar formulario de edición
-    public function edit($id)
-    {
-        $crianza = Crianza::findOrFail($id);
-        return view('interfaces.crianzaPanel', compact('crianza'));
     }
 
     // Actualizar una crianza existente
