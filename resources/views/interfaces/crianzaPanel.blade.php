@@ -2,23 +2,7 @@
 @vite(['resources/js/app.js'])
 
 <!-- Contenedor principal con Tailwind -->
-<div class="w-full max-w-7xl mx-auto px-4 mt-2 flex flex-col items-center"
- x-data="{
-    filtrarCategoria() {
-      const categoriaId = document.getElementById('filtro-categoria').value;
-      const url = `/crianza?categoria_id=${categoriaId}`;
-
-      fetch(url, {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      })
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('contenedor-crianza-panel').innerHTML = html;
-      });
-    }
-  }">
+<div class="w-full max-w-7xl mx-auto px-4 mt-2 flex flex-col items-center">
   <!-- Título de la sección -->
   <div class="w-full max-w-6xl px-4">
     <!-- Botón para añadir nueva crianza y título -->
@@ -84,7 +68,7 @@
       </div>
     </div>
 
-    <!-- Filtro de categorías -->
+    <!-- Filtro de categorías 
     <div class="flex justify-end mb-4">
         <select id="filtro-categoria" class="border rounded px-3 py-2" @change="filtrarCategoria">
             <option value="">Todas las categorías</option>
@@ -92,10 +76,10 @@
                 <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
             @endforeach
         </select>
-    </div>
+    </div>-->
 
     <!-- Cards para mostrar las crianzas -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="contenedor-crianza-panel">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="contenedor-crianza">
       @foreach($crianzas as $crianza)
         <div class="shadow-md rounded-lg overflow-hidden">
           <div class="bg-gray-600 rounded shadow p-2 space-y-3" data-categoria="{{ $crianza->animal->categoria }}">

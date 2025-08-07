@@ -21,13 +21,7 @@ class CrianzaController extends Controller
         // Filtro de categoría (opcional)
         $categoriaId = $request->input('categoria_id');
 
-        $crianzas = Crianza::with(['animal.categoria', 'responsable'])
-            ->when($categoriaId, function ($query, $categoriaId) {
-                $query->whereHas('animal', function ($q) use ($categoriaId) {
-                    $q->where('categoria_id', $categoriaId);
-                });
-            })
-            ->paginate(3);
+        $crianzas = Crianza::with(['animal.categoria', 'responsable'])->paginate(3);
 
         if ($request->ajax()) {
             // Petición AJAX: devolver solo la vista parcial (sin layout)
