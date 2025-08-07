@@ -6,16 +6,44 @@ use Illuminate\Http\Request;
 use App\Models\Crianza;
 use App\Models\Animal;
 use App\Models\User;
+use App\Models\CategoriaAnimal;
 
 
 class CrianzaController extends Controller
 {
-     // Mostrar todas las crianzas
-    public function index()
-    {   $animales = Animal::all();
+    // Mostrar todas las crianzas
+    public function index( Request $request)
+    {   
+        $animales = Animal::all();
         $usuarios = User::all();
-        $crianzas = Crianza::with(['animal', 'responsable'])->paginate(10);
-        return view('interfaces.crianzaPanel', compact('usuarios','animales','crianzas'));
+        $categorias = CategoriaAnimal::all();
+
+        // Filtro de categoría (opcional)
+        $categoriaId = $request->input('categoria_id');
+
+        $crianzas = Crianza::with(['animal.categoria', 'responsable'])
+            ->when($categoriaId, function ($query, $categoriaId) {
+                $query->whereHas('animal', function ($q) use ($categoriaId) {
+                    $q->where('categoria_id', $categoriaId);
+                });
+            })
+            ->paginate(3);
+
+        if ($request->ajax()) {
+            // Petición AJAX: devolver solo la vista parcial (sin layout)
+            return view('interfaces.crianzaPanel', compact('usuarios','animales','crianzas', 'categorias'));
+        } else {
+            // Petición normal (recarga o acceso directo)
+            // Layout completo con el módulo cargado dinámicamente
+                return view('interfaces.homePanel', [
+                    'modulo' => 'crianza',
+                    'usuarios' => $usuarios,
+                    'animales' => $animales,
+                    'crianzas' => $crianzas,
+                    'categorias' => $categorias,
+                ]);
+        }
+    
     }
 
     // Mostrar el formulario de creación
@@ -36,7 +64,7 @@ class CrianzaController extends Controller
 
         Crianza::create($request->all());
 
-        return redirect()->route('homePanel')->with('success', 'Registro de crianza agregado exitosamente.');
+        return redirect()->route('crianza.index')->with('success', 'Registro de crianza agregado exitosamente.');
     }
 
     // Mostrar detalles de una crianza específica
@@ -63,16 +91,21 @@ class CrianzaController extends Controller
         $crianza->responsable_id = $request->responsable_id;
         $crianza->save();
 
-        return redirect()->back()->with('success', 'Crianza actualizada correctamente.');
+        return redirect()->route('crianza.index')->with('success', 'Registro actualizado correctamente');
+
     }
 
     // Eliminar una crianza
     public function destroy($id)
     {
-        $crianza = Crianza::findOrFail($id);
-        $crianza->delete();
+        try {
+            $crianza = Crianza::findOrFail($id);
+            $crianza->delete();
 
-        return redirect()->route('homePanel')->with('success', 'Registro de crianza eliminado correctamente.');
+            return redirect()->route('crianza.index')->with('success', 'Registro de crianza eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('crianza.index')->with('error', 'Error al eliminar el registro de crianza.');
+        }
     }
 
     public function filtrar(Request $request)
@@ -84,6 +117,5 @@ class CrianzaController extends Controller
 
         return view('partials.crianzaCards', compact('crianzas'));
     }
-
 
 }

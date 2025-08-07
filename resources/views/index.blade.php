@@ -8,12 +8,8 @@
 
   <title>SAGSZ</title>
 </head>
-<body>
-    @include('components.alert')
-    <!-- Toggle Dark/Light -->
-    
-  
-  
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+  @include('components.alert')
   <main>
       <div class=" flex flex-col max-w items-center">
         <!--Titulo de la pagina-->
@@ -48,7 +44,7 @@
             <form 
               x-show="mostrarFormulario" 
               x-transition 
-              class="mt-6 space-y-4 max-w-sm mx-auto bg-white p-6 rounded shadow"
+              class="mt-6 space-y-4 max-w-sm mx-auto bg-white p-6 rounded shadow dark:bg-gray-800"
               method="POST" 
               action="{{ route('login') }}"
             >
@@ -58,7 +54,7 @@
                 name="identificacion" 
                 placeholder="Identificación"
                 required 
-                class="w-full px-4 py-2 border rounded"
+                class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:text-white"
               >
 
               <input 
@@ -66,7 +62,7 @@
                 name="password" 
                 placeholder="Contraseña"
                 required 
-                class="w-full px-4 py-2 border rounded"
+                class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:text-white"
               >
 
               <div class="flex justify-between items-center">

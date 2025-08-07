@@ -1,108 +1,117 @@
 function cargarSeccion(ruta) {
   const contenedor = document.getElementById('contenido-dinamico');
+  const homePanel = document.getElementById('homePanel');
+
+  if (contenedor.dataset.loading === "true") return;
+
+  if (ruta === '/homePanel') {
+    // Mostrar homePanel y limpiar contenido dinámico
+    homePanel.style.display = 'block';
+    contenedor.innerHTML = '';
+    window.history.pushState({ ruta }, '', ruta);
+    return;
+  }
+
+  // Para otras rutas ocultamos homePanel y cargamos contenido dinámico
+  homePanel.style.display = 'none';
+  contenedor.dataset.loading = "true";
   contenedor.innerHTML = '<div class="text-center p-4">Cargando...</div>';
 
   fetch(ruta, {
     headers: {
-      'X-Requested-With': 'XMLHttpRequest' // Laravel detecta esto como AJAX
+      'X-Requested-With': 'XMLHttpRequest'
     }
   })
   .then(response => {
-      if (!response.ok) throw new Error('Error al cargar la sección');
-      return response.text();
-    })
-    .then(html => {
-      contenedor.innerHTML = html;
-      Alpine.initTree(contenedor);
+    if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
+    return response.text();
+  })
+  .then(html => {
+    contenedor.innerHTML = html;
+    Alpine.initTree(contenedor);
+    contenedor.dataset.loading = "false";
 
+    if (window.location.pathname !== ruta) {
       window.history.pushState({ ruta }, '', ruta);
-    })
-    .catch(error => {
-      console.error(error);
-      contenedor.innerHTML = '<div class="text-center text-red-500 p-4">Error al cargar la sección.</div>';
-    });
-
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    contenedor.dataset.loading = "false";
+    contenedor.innerHTML = `
+      <div class="text-center text-red-500 p-4">
+        <p>Error al cargar la sección.</p>
+        <p class="text-sm">${error.message}</p>
+      </div>`;
+  });
 }
 
-// Volver atrás con botones del navegador
-window.addEventListener('popstate', (event) => {
-  if (event.state?.ruta) {
-    cargarSeccion(event.state.ruta);
-  }
+// Hacemos la función visible desde HTML
+window.cargarSeccion = cargarSeccion;
+
+// Manejo del historial del navegador (back/forward)
+window.addEventListener("popstate", () => {
+  const ruta = window.location.pathname;
+  cargarSeccion(ruta);
 });
 
-
-// Esperar a que el DOM esté completamente cargado antes de agregar los event listeners
-// y asignar los manejadores de eventos a los enlaces del sidebar
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.sidebar-link').forEach(link => {
+  const breadcrumbOl = document.getElementById('breadcrumb-ol');
+
+  // Manejo de clics en enlaces del sidebar y en Inicio
+  document.querySelectorAll('[data-ruta], #inicio-link').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      const ruta = this.dataset.ruta;
 
-      cargarSeccion(ruta);
-      document.getElementById('homePanel').style.display = 'none';
-    });
-  });
-});
-
-// Carga dinamica de secciones al hacer clic en enlaces con data-ruta
-// y actualizar el breadcrumb
-document.addEventListener('DOMContentLoaded', function () {
-  const enlaces = document.querySelectorAll('[data-ruta]');
-
-  enlaces.forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-
-      const ruta = this.getAttribute('data-ruta');
-      const titulo = this.getAttribute('data-titulo') || 'Sección';
-
-
+      // Ruta a cargar (para Inicio usamos '/homePanel')
+      const ruta = this.getAttribute('data-ruta') || '/homePanel';
       cargarSeccion(ruta);
 
       // Actualizar breadcrumb
-      const breadcrumbOl = document.getElementById('breadcrumb-ol');
       if (breadcrumbOl) {
-        breadcrumbOl.innerHTML = `
-          <li>
-            <a href="/homePanel" class="hover:underline">Panel de Inicio</a>
-          </li>
-          <li>/</li>
-          <li class="text-white-500 dark:text-white-300">${titulo}</li>
-        `;
+        if (ruta === '/homePanel') {
+          breadcrumbOl.innerHTML = '';
+          document.getElementById('homePanel').style.display = 'block';
+        } else {
+          const titulo = this.getAttribute('data-titulo') || 'Sección';
+          breadcrumbOl.innerHTML = `
+            <li><a href="/homePanel" class="hover:underline">Panel de Inicio</a></li>
+            <li>/</li>
+            <li class="text-white-500 dark:text-white-300">${titulo}</li>
+          `;
+          document.getElementById('homePanel').style.display = 'none';
+        }
       }
     });
   });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-  const path = window.location.pathname;
-
-  // Lista de rutas válidas
+  // Al cargar la página, si la ruta es válida, cargar contenido o mostrar homePanel
   const rutasValidas = {
     '/trasladosPanel': 'Traslados',
     '/crianza': 'Crianza',
     '/laboratorio': 'Laboratorio',
-    '/crianza': 'Crianza',
-    // Agrega aquí más si lo necesitas
+    '/nutricion': 'Nutrición',
   };
+
+  const path = window.location.pathname;
 
   if (rutasValidas[path]) {
     cargarSeccion(path);
 
-    // Actualizar breadcrumb también
-    const breadcrumbOl = document.getElementById('breadcrumb-ol');
     if (breadcrumbOl) {
       breadcrumbOl.innerHTML = `
-        <li>
-          <a href="/homePanel" class="hover:underline">Panel de Inicio</a>
-        </li>
+        <li><a href="/homePanel" class="hover:underline">Panel de Inicio</a></li>
         <li>/</li>
         <li class="text-white-500 dark:text-white-300">${rutasValidas[path]}</li>
       `;
     }
 
-    document.getElementById('homePanel').style.display = 'block'; // o como manejes la visibilidad
+    document.getElementById('homePanel').style.display = 'none';
+  } else if (path === '/homePanel' || path === '/') {
+    // Mostrar homePanel si estamos en la raíz o en /homePanel
+    document.getElementById('homePanel').style.display = 'block';
+    if (breadcrumbOl) breadcrumbOl.innerHTML = '';
   }
 });
+
+
