@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\RegistroAmbiental;
 use App\Models\CategoriaAnimal;
 
@@ -38,5 +37,24 @@ class MonitoreoAmbientalController extends Controller
 
         return response()->json($datos);
     }
+
+    public function guardar(Request $request)
+{
+    $validated = $request->validate([
+        'categoria_id' => 'required|integer|exists:categorias_animales,id',
+        'temperatura' => 'required|numeric',
+        'humedad' => 'required|numeric',
+    ]);
+
+    \App\Models\RegistroAmbiental::create([
+        'categoria_id' => $validated['categoria_id'],
+        'temperatura' => $validated['temperatura'],
+        'humedad' => $validated['humedad'],
+        'registrado_en' => now(),
+    ]);
+
+    return response()->json(['success' => true], 201);
+}
+
 
 }
