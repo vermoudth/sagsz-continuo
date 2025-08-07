@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\CrianzaController;
+use App\Http\Controllers\API\MonitoreoAmbientalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,15 +34,12 @@ Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel
 */
 Route::prefix('crianza')->group(function () {
     Route::get('/', [CrianzaController::class, 'index'])->name('crianza.index');
-    Route::get('/create', [CrianzaController::class, 'create'])->name('crianza.create');
     Route::post('/', [CrianzaController::class, 'store'])->name('crianza.store');
-    Route::get('/{id}', [CrianzaController::class, 'show'])->name('crianza.show');
-    Route::get('/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
     Route::put('/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
     Route::delete('/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 });
 
-Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +63,14 @@ Route::get('/trasladosPanel', function () {
     }
     return redirect('/homePanel');
 })->name('trasladosPanel');
+
+/*
+|--------------------------------------------------------------------------
+| Módulo de Monitorización Ambiental
+|--------------------------------------------------------------------------
+*/
+Route::get('/monitoreo-ambiental', [MonitoreoAmbientalController::class, 'index']);
+
 
 /*
 |--------------------------------------------------------------------------

@@ -56,6 +56,11 @@
             <i class="fa-solid fa-heart"></i> <strong>Nutrición</strong>
           </a>
         </li>
+        <li>
+          <a href="/monitoreo-ambiental" onclick="event.preventDefault(); cargarSeccion('/monitoreo-ambiental')">
+            <i class="fas fa-paw"></i> <strong>Monitoreo Ambiental</strong>
+          </a>
+        </li>
       </ul>
 
       <hr class="my-2 border-gray-300 dark:border-gray-600">
