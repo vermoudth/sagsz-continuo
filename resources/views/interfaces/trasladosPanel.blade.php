@@ -1,81 +1,233 @@
-<div class="w-full p-4 space-y-6" >
-  <!-- Estadísticas generales -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
-    <div>
-      <span class="text-2xl font-semibold">00</span>
-      <p class="text-sm font-bold">Total traslados</p>
-    </div>
-    <div>
-      <i class="fas fa-university text-xl"></i>
-      <span class="text-2xl font-semibold block">00</span>
-      <p class="text-sm font-bold">Institución que encomienda</p>
-    </div>
-    <div>
-      <i class="fas fa-map-marker-alt text-xl"></i>
-      <span class="text-2xl font-semibold block">03</span>
-      <p class="text-sm font-bold">Lugar de traslado</p>
-    </div>
-    <div>
-      <i class="fas fa-paw text-xl"></i>
-      <span class="text-2xl font-semibold block">00</span>
-      <p class="text-sm font-bold">Especie</p>
-    </div>
-    <div>
-      <i class="fas fa-user-md text-xl"></i>
-      <span class="text-2xl font-semibold block">00</span>
-      <p class="text-sm font-bold">Médico Veterinario</p>
-    </div>
-  </div>
+@vite(['resources/js/app.js'])
+<!-- Contenedor principal con Tailwind -->
+<div class="w-full mt-2 flex flex-col items-center">
+  <div class="w-full max-w-6xl px-4">
+    <!-- Botón para añadir nueva traslado y título -->
+    <div class="p-4 flex flex-row justify-between items-center w-full max-w-6xl">
+      <h3 class="text-xl font-semibold text-white">Traslado de Animales</h3>
+      <!-- Botón que activa el modal -->
+      <div x-data="{ showAdd: false }">
+        <!-- Botón que activa el modal -->
+        <button @click="showAdd = true"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition">
+          Añadir Traslado
+        </button>
+        <!-- Modal para añadir Traslado -->
+        <div 
+          x-show="showAdd" 
+          class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+          x-cloak
+          @click.outside="showAdd = false"
+          >
+          <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
+            <h2 class="text-lg font-semibold mb-4 text-white">Añadir Tralado</h2>
+            <form action="{{ route('traslado.store') }}" method="POST">
+              @csrf
+              <!-- Campo Animal -->
+              <div class="mb-4">
+                <label for="animal_id" class="block text-gray-300 font-medium mb-2">Animal</label>
+                <select class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" name="animal_id" required>
+                  <option value="">Seleccionar Animal</option>
+                  @foreach($animales as $animal)
+                    <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <!-- Campo Descripción -->
+              <div class="mb-4">
+                <label for="origen" class="block text-gray-300 font-medium mb-2">Origen</label>
+<input type="text" name="origen" class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 mb-4" required>
 
-  <!-- Cards de traslados -->
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-    <!-- Card ejemplo -->
-    <div class="shadow rounded-2xl p-4">
-      <h2 class="text-lg text-whitefont-bold mb-4">Traslado 1</h2>
-
-      <div class="grid grid-cols-2 gap-4 text-center">
-        <div>
-          <i class="icon pressure-icon text-blue-500 text-xl"></i>
-          <p class="text-base font-medium">00</p>
-          <p class="text-sm text-gray-600">Especie</p>
-        </div>
-        <div>
-          <i class="icon vibration-icon text-green-500 text-xl"></i>
-          <p class="text-base font-medium">00</p>
-          <p class="text-sm text-gray-600">Veterinario</p>
-        </div>
-        <div>
-          <i class="icon temperature-icon text-red-500 text-xl"></i>
-          <p class="text-base font-medium">00</p>
-          <p class="text-sm text-gray-600">Institución</p>
-        </div>
-        <div>
-          <i class="icon gasflow-icon text-purple-500 text-xl"></i>
-          <p class="text-base font-medium">00</p>
-          <p class="text-sm text-gray-600">Lugar</p>
+<label for="destino" class="block text-gray-300 font-medium mb-2">Destino</label>
+<input type="text" name="destino" class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+              <!-- Campo Fecha -->
+              <div class="mb-4">
+                <label for="fecha" class="block text-gray-300 font-medium mb-2">Fecha</label>
+                <input type="date" class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" name="fecha" required>
+              </div>
+              <!-- Campo Responsable -->
+              <div class="mb-4">
+                <label for="responsable_id" class="block text-gray-300 font-medium mb-2">Responsable</label>
+                <select class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" name="responsable_id" required>
+                  <option value="">Seleccionar Responsable</option>
+                  @foreach($usuarios as $usuario)
+                    <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded shadow transition">Guardar</button>
+            </form>
+            <!-- Botón para cerrar el modal -->
+            <button @click="showAdd = false"
+              class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+              Cerrar
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Copias de la tarjeta anterior -->
-    <div class="bg-white shadow rounded-2xl p-4">
-      <h2 class="text-lg font-bold mb-4">Traslado 2</h2>
-      <div class="grid grid-cols-2 gap-4 text-center">
-        <!-- Repite contenido con otros datos -->
+    <!-- Cards para mostrar las traslados -->
+    <div class="flex flex-wrap -mx-2 font-sans text-white" id="contenedor-traslado">
+      @foreach($traslados as $traslado)
+        <div class="w-full md:w-1/3 px-2 mb-4">
+          <div class="bg-gray-600 rounded shadow p-4 space-y-3" data-categoria="{{ $traslado->animal->categoria }}">
+            <div class="card-body">
+              <h5 class="text-xl font-bold mb-2">{{ $traslado->animal->nombre }}</h5>
+              <p class="text-sm space-y-1">
+                <span class="flex items-center gap-2">
+                  <!-- Icono calendario -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M4 11h16M4 19h16M4 15h16M4 7h16" />
+                  </svg>
+                  Fecha de Registro: {{ \Carbon\Carbon::parse($traslado->fecha)->format('d/m/Y') }}
+                </span>
+                <span class="flex items-center gap-2">
+                  <!-- Icono comentario -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0-4.418-4.03-8-9-8S3 7.582 3 12s4.03 8 9 8c1.55 0 3-.354 4.243-.98l3.514.727a1 1 0 001.212-1.212l-.727-3.514A7.963 7.963 0 0021 12z" />
+                  </svg>
+                  Origen: {{ $traslado->origen }} - Destino: {{ $traslado->destino }}
+                </span>
+                <span class="flex items-center gap-2">
+                  <!-- Icono reloj -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M12 2a10 10 0 100 20 10 10 0 000-20z" />
+                  </svg>
+                  Fecha: {{ $traslado->fecha }}
+                </span>
+                <span class="flex items-center gap-2">
+                  <!-- Icono usuario -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.577 0 4.97.733 6.879 1.993M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Responsable: {{ $traslado->responsable->nombre }}
+                </span>
+              </p>
+
+              <div class="flex gap-4 mt-4">
+                <button 
+                  @click="$dispatch('open-edit-modal', {
+                    id: {{ $traslado->id }},
+                    animal: {{ $traslado->animal_id }},
+                    descripcion: '{{ addslashes($traslado->descripcion) }}',
+                    fecha: '{{ $traslado->fecha }}',
+                    responsable_id: {{ $traslado->responsable_id }}
+                  })"
+                  class="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded text-sm px-4 py-2"
+                  >
+                  Editar
+                </button>
+                <button type="submit"
+                  @click="$dispatch('open-delete-modal', { id: {{ $traslado->id }} })"
+                  class="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded text-sm px-4 py-2">
+                    Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endforeach
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-center mt-4">
+      {{ $traslados->links() }} <!-- Esto genera la paginación, ahora centrada con Tailwind -->
+    </div>
+
+    <!-- Modal para eliminar traslado -->
+    <div 
+      x-data="{ abierto: false }"
+      @open-delete-modal.window="abierto = true; id = $event.detail.id"
+      x-show="abierto"
+      x-cloak
+      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+       @click.outside="abierto = false"
+      >
+      <div class="bg-gray-800 rounded-lg p-6 shadow-lg max-w-md w-full border-gray-700">
+        <h2 class="text-lg font-semibold text-white mb-4">¿Estás seguro de que deseas eliminar este registro?</h2>
+        <div class="flex justify-end gap-4">
+          <button 
+            @click="abierto = false"
+            class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded text-black text-sm">
+            Cancelar
+          </button>
+          <form action="{{ route('traslado.destroy', $traslado->id) }}" method="POST" class="inline">
+            @csrf
+            @method('DELETE')
+            <button 
+              type="submit" 
+              class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded text-sm">
+              Eliminar
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 
-    <div class="bg-white shadow rounded-2xl p-4">
-      <h2 class="text-lg font-bold mb-4">Traslado 3</h2>
-      <div class="grid grid-cols-2 gap-4 text-center">
-        <!-- Repite contenido con otros datos -->
-      </div>
-    </div>
+    <!-- Modal para Editar Traslado -->
+    <div
+      @open-edit-modal.window="abrirModal($event.detail)"
+      x-init="$watch('abierto', value => { if (!value) formData = { id: null, animal_id: '', origen: '', destino: '', fecha: '', responsable_id: '' }; })"
+      x-data="window.editarTraslado ? editarTraslado() : {}" 
+      x-show="abierto"
+      x-cloak
+      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+       @click.outside="abierto = false"  
+      >
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
+        <h2 class="text-lg font-semibold mb-4 text-white">Editar Traslado</h2>
+          <form :action="`/traslado/${formData.id}`" method="POST" id="editForm">
+            @csrf
+            @method('PUT')
+            <!-- Animal -->
+            <div class="mb-4">
+              <label class="block text-gray-300 font-medium mb-2">Animal</label>
+              <select name="animal_id" x-model="formData.animal_id" required
+                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                  <option value="">Seleccionar Animal</option>
+                  @foreach ($animales as $animal)
+                    <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                  @endforeach
+                </select>
+            </div>
 
-    <div class="bg-white shadow rounded-2xl p-4">
-      <h2 class="text-lg font-bold mb-4">Traslado 4</h2>
-      <div class="grid grid-cols-2 gap-4 text-center">
-        <!-- Repite contenido con otros datos -->
+              <!-- Descripción -->
+              <div class="mb-4">
+                <label for="edit_descripcion" class="block text-gray-300 font-medium mb-2">Descripción</label>
+                  <textarea type="text" x-model="formData.origen" name="origen" rows="3" required
+                    class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                  </textarea>
+              </div>
+
+              <!-- Fecha -->
+              <div class="mb-4">
+                <label class="block text-gray-300 font-medium mb-2">Fecha</label>
+                <input type="date" x-model="formData.fecha" name="fecha" required
+                class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+              </div>
+
+              <!-- Responsable -->
+              <div class="mb-4">
+                <label class="block text-gray-300 font-medium mb-2">Responsable</label>
+                <select name="responsable_id" x-model="formData.responsable_id" required
+                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                  <option value="">Seleccionar Responsable</option>
+                  @foreach($usuarios as $usuario)
+                    <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <!-- Botones -->
+              <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+                Actualizar
+              </button>
+              <button @click="abierto = false"
+                class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+                Cancelar
+              </button>
+          </form>
       </div>
     </div>
   </div>
