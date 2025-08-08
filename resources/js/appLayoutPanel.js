@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Al cargar la página, si la ruta es válida, cargar contenido o mostrar homePanel
   const rutasValidas = {
-    '/trasladosPanel': 'Traslados',
+    '/traslados': 'Traslados',
     '/crianza': 'Crianza',
     '/laboratorio': 'Laboratorio',
     '/nutricion': 'Nutrición',

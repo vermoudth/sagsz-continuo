@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\CrianzaController;
+use App\Http\Controllers\TrasladosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +60,14 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 | Panel de Traslados (SPA compatible)
 |--------------------------------------------------------------------------
 */
-Route::get('/trasladosPanel', function () {
-    if (request()->ajax()) {
-        return view('interfaces.trasladosPanel');
-    }
-    return redirect('/homePanel');
-})->name('trasladosPanel');
+//Route::get('/traslados', [TrasladosController::class, 'index'])->name('traslados.index');
 
+Route::prefix('traslados')->group(function () {
+    Route::get('/', [TrasladosController::class, 'index'])->name('traslados.index');
+    Route::post('/', [TrasladosController::class, 'store'])->name('traslados.store');
+    //  Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
+   // Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
+});
 /*
 |--------------------------------------------------------------------------
 | Test y fallback
