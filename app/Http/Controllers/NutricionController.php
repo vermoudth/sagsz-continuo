@@ -28,7 +28,7 @@ class NutricionController extends Controller
                 'modulo' => 'nutricion',
                 'usuarios' => $usuarios,
                 'animales' => $animales,
-                'nurticion' => $nutricion,
+                'nutricion' => $nutricion,
                 'categorias' => $categorias,
             ]);
         }
