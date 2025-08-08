@@ -14,7 +14,7 @@ class TrasladosController extends Controller
     {
         $animales = Animal::all();
         $usuarios = User::all();
-        $traslados = Traslados::with(['animal.categoria', 'responsable']);
+        $traslados = Traslados::with(['animal.categoria', 'responsable'])->paginate(3);
 
         if ($request->ajax()) {
             return view('interfaces.trasladosPanel', compact('usuarios', 'animales', 'traslados'));

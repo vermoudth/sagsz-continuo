@@ -11,7 +11,7 @@
       </button>
     </div>
 
-    <!-- Estadísticas generales -->
+    <!-- Estadísticas generales
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-center">
       @php
         $stats = [
@@ -32,44 +32,56 @@
           <p class="text-xs font-semibold text-gray-600 dark:text-gray-300">{{ $stat['label'] }}</p>
         </div>
       @endforeach
-    </div>
+    </div>-->
 
     <!-- Cards de traslados -->
-  <!-- Cards de traslados -->
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
-    @foreach ($traslados as $traslado)
-      <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-3 transition-colors duration-300">
-        <h2 class="text-base font-bold mb-2 dark:text-white">Animal ID: {{ $traslado->animal }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+      @forelse ($traslados as $traslado)
+        <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-3 transition-colors duration-300">
+          @if($traslado->animal)
+              <h2 class="text-base font-bold mb-2 dark:text-white">
+                  Animal ID: {{ $traslado->animal->id }}
+              </h2>
+          @else
+              <h2 class="text-base font-bold mb-2 text-red-500">
+                  Sin información del animal
+              </h2>
+          @endif
 
-        <div class="grid grid-cols-2 gap-3 text-center text-gray-700 dark:text-gray-300 text-sm">
-          <div>
-            <i class="fas fa-university text-blue-500 text-base"></i>
-            <p class="font-medium truncate">{{ $traslado->origen }}</p>
-            <p class="text-xs">Origen</p>
-          </div>
-          <div>
-            <i class="fas fa-map-marker-alt text-purple-500 text-base"></i>
-            <p class="font-medium truncate">{{ $traslado->destino }}</p>
-            <p class="text-xs">Destino</p>
-          </div>
-          <div>
-            <i class="fas fa-calendar-day text-red-500 text-base"></i>
-            <p class="font-medium">{{ \Carbon\Carbon::parse($traslado->fecha)->format('d/m/Y') }}</p>
-            <p class="text-xs">Fecha</p>
-          </div>
-          <div>
-            <i class="fas fa-user-md text-green-500 text-base"></i>
-            <p class="font-medium truncate">Resp. ID: {{ $traslado->responsable_id }}</p>
-            <p class="text-xs">Responsable</p>
+
+          <div class="grid grid-cols-2 gap-3 text-center text-gray-700 dark:text-gray-300 text-sm">
+            <div>
+              <i class="fas fa-university text-blue-500 text-base"></i>
+              <p class="font-medium truncate">{{ $traslado->origen }}</p>
+              <p class="text-xs">Origen</p>
+            </div>
+            <div>
+              <i class="fas fa-map-marker-alt text-purple-500 text-base"></i>
+              <p class="font-medium truncate">{{ $traslado->destino }}</p>
+              <p class="text-xs">Destino</p>
+            </div>
+            <div>
+              <i class="fas fa-calendar-day text-red-500 text-base"></i>
+              <p class="font-medium">{{ \Carbon\Carbon::parse($traslado->fecha)->format('d/m/Y') }}</p>
+              <p class="text-xs">Fecha</p>
+            </div>
+            <div>
+              <i class="fas fa-user-md text-green-500 text-base"></i>
+              <p class="font-medium truncate">Resp. ID: {{ $traslado->responsable_id }}</p>
+              <p class="text-xs">Responsable</p>
+            </div>
           </div>
         </div>
-      </div>
-    @endforeach
-  </div>
+        @empty
+          <div class="col-span-4 text-center py-10">
+            <p class="text-gray-500 text-sm">No hay traslados registrados por el momento.</p>
+          </div>
+        @endforelse
+    </div>
 
     <!-- Espacio para futura paginación -->
-    <div class="mt-4">
-      {{-- Paginación aquí más adelante --}}
+    <div class="flex justify-center mt-4 pagination">
+      {{ $traslados->links() }} <!-- Esto genera la paginación, ahora centrada con Tailwind -->
     </div>
   </div>
 </div>
