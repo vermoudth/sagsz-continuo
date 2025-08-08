@@ -9,7 +9,7 @@ use App\Models\User;
 
 class TrasladosController extends Controller
 {
-    // Mostrar todos los traslados
+        // Mostrar todos los traslados
     public function index(Request $request)
     {
         $animales = Animal::all();
@@ -29,7 +29,7 @@ class TrasladosController extends Controller
     }
 
     // Guardar un nuevo traslado
-    /*public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'id_animal' => 'required|exists:animales,id',
@@ -45,7 +45,7 @@ class TrasladosController extends Controller
     }
 
 
-
+/*
     // Actualizar un traslado existente
     public function update(Request $request, $id)
     {
@@ -75,6 +75,4 @@ class TrasladosController extends Controller
             return redirect()->route('traslados.index')->with('error', 'Error al eliminar el registro de traslado.');
         }
     }*/
-
 }
-

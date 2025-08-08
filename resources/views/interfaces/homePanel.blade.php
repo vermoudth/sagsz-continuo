@@ -32,11 +32,7 @@
           </a>
         </li>
         <li>
-          <a href="./resources/views/interfaces/homePanel.blade.php" 
-          
-          class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  
-          data-ruta="{{ route('trasladosPanel') }}" 
-          data-titulo="Traslados">
+          <a href="/traslados" onclick="event.preventDefault(); cargarSeccion('/traslados')">
             <i class="fas fa-truck"></i> <strong>Traslados</strong>
           </a>
         </li>

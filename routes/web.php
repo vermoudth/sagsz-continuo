@@ -60,14 +60,14 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 | Panel de Traslados (SPA compatible)
 |--------------------------------------------------------------------------
 */
-Route::get('/traslados', [TrasladosController::class, 'index'])->name('traslados.index');
-/*
+//Route::get('/traslados', [TrasladosController::class, 'index'])->name('traslados.index');
+
 Route::prefix('traslados')->group(function () {
     Route::get('/', [TrasladosController::class, 'index'])->name('traslados.index');
     Route::post('/', [TrasladosController::class, 'store'])->name('traslados.store');
-    Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
-    Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
-});*/
+    //  Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
+   // Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
+});
 /*
 |--------------------------------------------------------------------------
 | Test y fallback
