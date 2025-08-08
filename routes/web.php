@@ -42,7 +42,6 @@ Route::prefix('crianza')->group(function () {
     Route::delete('/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 });
 
-Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
 
 /*
 |--------------------------------------------------------------------------
