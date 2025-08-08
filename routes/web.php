@@ -66,12 +66,6 @@ Route::prefix('traslados')->group(function () {
     //  Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
    // Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
 });
-Route::get('/trasladosPanel', function () {
-    if (request()->ajax()) {
-        return view('interfaces.trasladosPanel');
-    }
-    return redirect('/homePanel');
-})->name('trasladosPanel');
 
 /*
 |--------------------------------------------------------------------------
