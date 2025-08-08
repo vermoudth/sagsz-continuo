@@ -14,7 +14,7 @@ class TrasladosController extends Controller
     {
         $animales = Animal::all();
         $usuarios = User::all();
-        $traslados = Traslados::with(['animal', 'responsable'])->paginate(3);
+        $traslados = Traslados::with(['animal.categoria', 'responsable']);
 
         if ($request->ajax()) {
             return view('interfaces.trasladosPanel', compact('usuarios', 'animales', 'traslados'));
@@ -29,7 +29,7 @@ class TrasladosController extends Controller
     }
 
     // Guardar un nuevo traslado
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         $request->validate([
             'id_animal' => 'required|exists:animales,id',
@@ -39,10 +39,10 @@ class TrasladosController extends Controller
             'responsable_id' => 'required|exists:users,id'
         ]);
 
-        Traslado::create($request->all());
+        Traslados::create($request->all());
 
         return redirect()->route('traslados.index')->with('success', 'Registro de traslado agregado exitosamente.');
-    }
+    }*/
 
 
 /*

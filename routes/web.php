@@ -34,15 +34,10 @@ Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel
 */
 Route::prefix('crianza')->group(function () {
     Route::get('/', [CrianzaController::class, 'index'])->name('crianza.index');
-    Route::get('/create', [CrianzaController::class, 'create'])->name('crianza.create');
     Route::post('/', [CrianzaController::class, 'store'])->name('crianza.store');
-    Route::get('/{id}', [CrianzaController::class, 'show'])->name('crianza.show');
-    Route::get('/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
     Route::put('/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
     Route::delete('/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 });
-
-Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
 
 /*
 |--------------------------------------------------------------------------
@@ -57,14 +52,14 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 
 /*
 |--------------------------------------------------------------------------
-| Panel de Traslados (SPA compatible)
+| Panel de Traslados
 |--------------------------------------------------------------------------
 */
 //Route::get('/traslados', [TrasladosController::class, 'index'])->name('traslados.index');
 
 Route::prefix('traslados')->group(function () {
     Route::get('/', [TrasladosController::class, 'index'])->name('traslados.index');
-    Route::post('/', [TrasladosController::class, 'store'])->name('traslados.store');
+    //Route::post('/', [TrasladosController::class, 'store'])->name('traslados.store');
     //  Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
    // Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
 });

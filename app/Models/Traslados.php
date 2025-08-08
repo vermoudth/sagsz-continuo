@@ -12,7 +12,7 @@ class Traslados extends Model
     protected $table = 'traslados';
 
     protected $fillable = [
-        'id_animal',
+        'animal_id',
         'origen',
         'destino',
         'fecha',
@@ -24,7 +24,7 @@ class Traslados extends Model
     // Relación con el modelo Animal
     public function animal()
     {
-        return $this->belongsTo(Animal::class, 'id_animal');
+        return $this->belongsTo(Animal::class, 'animal_id');
     }
 
     // Relación con el modelo User (responsable)
