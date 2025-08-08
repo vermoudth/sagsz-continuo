@@ -3,8 +3,8 @@
 </div>
 
 <script>
-  function cargarDatosAmbientales() {
-    fetch('/api/ultimos-registros-ambientales',{
+  async function cargarDatosAmbientales() {
+    await fetch('/api/registros-ambientales-ultimos',{
       headers: {
         'Accept': 'application/json'
       }
