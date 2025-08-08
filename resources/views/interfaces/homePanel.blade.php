@@ -42,10 +42,11 @@
           </a>
         </li>
         <li>
-          <a disable id="lab-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-            <i class="fa-solid fa-flask"></i> <strong>Laboratorio</strong>
-          </a>
-        </li>
+          <a href="/laboratorio" onclick="event.preventDefault(); cargarSeccion('/laboratorio')">
+        <i class="fa-solid fa-flask"></i> <strong>Laboratorio</strong>
+                </a>
+          </li>
+
         <li>
           <a id="nutri-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fa-solid fa-heart"></i> <strong>Nutrición</strong>
@@ -62,7 +63,7 @@
 
       <!-- Botón de ajustes y cerrar sesión -->
       <div class="relative">
-        <button class="flex items-center gap-2 text-gray-700 dark:text-white" id="dropdownUser2">
+        <button class="flex items-center gap-2 hover:text-blue-600 cursor-pointer" id="dropdownUser2">
           <i class="fa-solid fa-gear"></i> <strong>Ajustes</strong>
         </button>
         <ul class="absolute hidden mt-2 bg-white dark:bg-gray-800 text-sm rounded shadow-md w-40" id="settingsMenu">

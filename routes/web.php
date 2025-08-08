@@ -8,6 +8,8 @@ use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\CrianzaController;
 use App\Http\Controllers\API\MonitoreoAmbientalController;
 use App\Http\Controllers\TrasladosController;
+use App\Http\Controllers\LaboratorioController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,19 @@ Route::prefix('crianza')->group(function () {
     Route::delete('/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 });
 
+Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
 
+/*
+|--------------------------------------------------------------------------
+| Módulo de Laboratorio
+|--------------------------------------------------------------------------
+*/
+Route::prefix('laboratorio')->group(function () {
+    Route::get('/', [LaboratorioController::class, 'index'])->name('laboratorio.index');
+    Route::post('/', [LaboratorioController::class, 'store'])->name('laboratorio.store');
+    Route::put('/{id}', [LaboratorioController::class, 'update'])->name('laboratorio.update');
+    Route::delete('/{id}', [LaboratorioController::class, 'destroy'])->name('laboratorio.destroy');
+});
 
 /*
 |--------------------------------------------------------------------------
