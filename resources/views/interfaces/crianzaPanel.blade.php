@@ -5,6 +5,7 @@
 <div class="w-full max-w-7xl mx-auto px-4 mt-2 flex flex-col items-center">
   <!-- Título de la sección -->
   <div class="w-full max-w-6xl px-4">
+    
     <!-- Botón para añadir nueva crianza y título -->
     <div class="p-4 flex flex-row justify-between items-center w-full max-w-6xl">
       <h3 class="text-xl font-semibold text-white">Crianza de Animales</h3>

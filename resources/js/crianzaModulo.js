@@ -23,25 +23,7 @@ window.editarCrianza = function () {
             return fechaCompleta?.split(' ')[0] || '';
         }
     };
-};
-
-/*window.crianzaFunciones = {
-    filtrarCategoria() {
-        const categoriaId = document.getElementById('filtro-categoria').value;
-        const url = `/crianza?categoria_id=${categoriaId}`;
-
-        fetch(url, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('contenedor-crianza-panel').innerHTML = html;
-        });
-    }
-};*/
-
+    };
 document.addEventListener('DOMContentLoaded', function () {
     // Delegación de eventos a los links de paginación
     document.addEventListener('click', function (e) {
@@ -73,4 +55,3 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 });
-
