@@ -47,10 +47,11 @@
           </a>
         </li>
         <li>
-          <a disable id="lab-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-            <i class="fa-solid fa-flask"></i> <strong>Laboratorio</strong>
-          </a>
-        </li>
+          <a href="/laboratorio" onclick="event.preventDefault(); cargarSeccion('/laboratorio')">
+        <i class="fa-solid fa-flask"></i> <strong>Laboratorio</strong>
+                </a>
+          </li>
+
         <li>
           <a id="nutri-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fa-solid fa-heart"></i> <strong>Nutrición</strong>
