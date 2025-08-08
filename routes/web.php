@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\HomePanelController;
 use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\CrianzaController;
+use App\Http\Controllers\NutricionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,22 @@ Route::post('/animal', [FormAnimalController::class, 'store'])->name('animal.sto
 Route::get('/animales', [FormAnimalController::class, 'index'])->name('panel.animales');
 Route::get('/animales/data', [FormAnimalController::class, 'getAnimalesData'])->name('animales.data');
 Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
+
+/*
+|--------------------------------------------------------------------------
+| Módulo de Nutrición
+|--------------------------------------------------------------------------
+*/
+Route::prefix('nutricion')->group(function () {
+    Route::get('/', [NutricionController::class, 'index'])->name('nutricion.index');
+    Route::post('/', [NutricionController::class, 'store'])->name('nutricion.store');
+    Route::put('/{id}', [NutricionController::class, 'update'])->name('nutricion.update');
+    Route::delete('/{id}', [NutricionController::class, 'destroy'])->name('nutricion.destroy');
+});
+
+// Ruta específica para el filtro con AJAX (opcional si usas fetch con ?animal_id=)
+Route::get('/filtrar-nutricion', [NutricionController::class, 'filtrar'])->name('filtrar.nutricion');
+
 
 /*
 |--------------------------------------------------------------------------

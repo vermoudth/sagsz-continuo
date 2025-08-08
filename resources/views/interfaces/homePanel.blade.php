@@ -33,8 +33,7 @@
         </li>
         <li>
           <a disable 
-          href="#" 
-          class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed" 
+          href="#"          
           class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer"  
           data-ruta="{{ route('trasladosPanel') }}" 
           data-titulo="Traslados">
@@ -42,17 +41,19 @@
           </a>
         </li>
         <li>
-          <a href="/crianza" onclick="event.preventDefault(); cargarSeccion('/crianza')">
+          <a href="/crianza" onclick="event.preventDefault(); cargarSeccion('/crianza')"
+          class="sidebar-link flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fas fa-paw"></i> <strong>Crianza</strong>
           </a>
         </li>
         <li>
-          <a disable id="lab-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a disable id="lab-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fa-solid fa-flask"></i> <strong>Laboratorio</strong>
           </a>
         </li>
         <li>
-          <a id="nutri-link" class="pointer-events-none opacity-50 flex items-center gap-2 cursor-not-allowed class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <a id="/nutricion" onclick="event.preventDefault(); cargarSeccion('/nutricion')"
+          class="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
             <i class="fa-solid fa-heart"></i> <strong>Nutrición</strong>
           </a>
         </li>
