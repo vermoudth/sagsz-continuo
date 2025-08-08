@@ -34,15 +34,11 @@ Route::get('/homePanel', [HomePanelController::class, 'index'])->name('homePanel
 */
 Route::prefix('crianza')->group(function () {
     Route::get('/', [CrianzaController::class, 'index'])->name('crianza.index');
-    Route::get('/create', [CrianzaController::class, 'create'])->name('crianza.create');
     Route::post('/', [CrianzaController::class, 'store'])->name('crianza.store');
-    Route::get('/{id}', [CrianzaController::class, 'show'])->name('crianza.show');
-    Route::get('/{id}/edit', [CrianzaController::class, 'edit'])->name('crianza.edit');
     Route::put('/{id}', [CrianzaController::class, 'update'])->name('crianza.update');
     Route::delete('/{id}', [CrianzaController::class, 'destroy'])->name('crianza.destroy');
 });
 
-Route::get('/filtrar-crianza', [CrianzaController::class, 'filtrar'])->name('filtrar.crianza');
 
 /*
 |--------------------------------------------------------------------------
@@ -62,13 +58,10 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 */
 Route::prefix('nutricion')->group(function () {
     Route::get('/', [NutricionController::class, 'index'])->name('nutricion.index');
-    Route::post('/', [NutricionController::class, 'store'])->name('nutricion.store');
-    Route::put('/{id}', [NutricionController::class, 'update'])->name('nutricion.update');
-    Route::delete('/{id}', [NutricionController::class, 'destroy'])->name('nutricion.destroy');
+    //Route::post('/', [NutricionController::class, 'store'])->name('nutricion.store');
+    //Route::put('/{id}', [NutricionController::class, 'update'])->name('nutricion.update');
+    //Route::delete('/{id}', [NutricionController::class, 'destroy'])->name('nutricion.destroy');
 });
-
-// Ruta específica para el filtro con AJAX (opcional si usas fetch con ?animal_id=)
-Route::get('/filtrar-nutricion', [NutricionController::class, 'filtrar'])->name('filtrar.nutricion');
 
 
 /*

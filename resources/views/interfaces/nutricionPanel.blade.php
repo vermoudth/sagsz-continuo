@@ -68,12 +68,7 @@
       </div>
     </div>
 
-    <!-- Filtro -->
-    <div class="flex justify-end mb-4">
-      <select class="border rounded px-3 py-2">
-        <option value="">Todos los animales</option>
-      </select>
-    </div>
+    
 
     <!-- Cards Crianza -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -92,13 +87,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Paginación -->
-    <div class="flex justify-center mt-4">
-      <!-- Paginación dummy -->
-      <button class="text-white mx-2 hover:underline">Anterior</button>
-      <button class="text-white mx-2 hover:underline">Siguiente</button>
     </div>
   </div>
 </div>

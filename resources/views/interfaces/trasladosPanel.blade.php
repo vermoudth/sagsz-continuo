@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <!-- Copias de la tarjeta anterior -->
+    <!-- Copias de la tarjeta anterior -->  
     <div class="bg-white shadow rounded-2xl p-4">
       <h2 class="text-lg font-bold mb-4">Traslado 2</h2>
       <div class="grid grid-cols-2 gap-4 text-center">
