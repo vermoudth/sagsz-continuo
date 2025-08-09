@@ -19,7 +19,7 @@ class NutricionController extends Controller
         $categorias = CategoriaAnimal::all();
         $categoriaId = $request->input('categoria_id');
 
-        $nutricion = Nutricion::with(['animal.categoria', 'responsable'])->get();
+        $nutricion = Nutricion::with(['animal.categoria', 'responsable'])->paginatio(3);
 
         if ($request->ajax()) {
             return view('interfaces.nutricionPanel', compact('usuarios', 'animales', 'nutricion', 'categorias'));
