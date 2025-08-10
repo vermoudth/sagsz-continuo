@@ -16,7 +16,7 @@ class MonitoreoAmbientalController extends Controller
         return $request->ajax()
             ? view('interfaces.monitoreoAmbientalPanel', compact('categorias'))
             : view('interfaces.homePanel', [
-                'modulo' => 'monitoreoAmbiental',
+                'modulo' => 'Monitoreo Ambiental',
                 'categorias' => $categorias,
             ]);
     }

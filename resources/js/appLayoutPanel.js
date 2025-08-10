@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '/crianza': 'Crianza',
     '/laboratorio': 'Laboratorio',
     '/nutricion': 'Nutrición',
+    '/monitoreo-ambiental': 'Monitoreo Ambiental',
   };
 
   const path = window.location.pathname;
