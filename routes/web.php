@@ -8,6 +8,7 @@ use App\Http\Controllers\FormAnimalController;
 use App\Http\Controllers\CrianzaController;
 use App\Http\Controllers\API\MonitoreoAmbientalController;
 use App\Http\Controllers\TrasladosController;
+use App\Http\Controllers\NutricionController;
 use App\Http\Controllers\LaboratorioController;
 
 
@@ -65,6 +66,19 @@ Route::post('/animal', [FormAnimalController::class, 'store'])->name('animal.sto
 Route::get('/animales', [FormAnimalController::class, 'index'])->name('panel.animales');
 Route::get('/animales/data', [FormAnimalController::class, 'getAnimalesData'])->name('animales.data');
 Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name('animal.destroy');
+
+/*
+|--------------------------------------------------------------------------
+| Módulo de Nutrición
+|--------------------------------------------------------------------------
+*/
+Route::prefix('nutricion')->group(function () {
+    Route::get('/', [NutricionController::class, 'index'])->name('nutricion.index');
+    Route::post('/', [NutricionController::class, 'store'])->name('nutricion.store');
+    Route::put('/{id}', [NutricionController::class, 'update'])->name('nutricion.update');
+    Route::delete('/{id}', [NutricionController::class, 'destroy'])->name('nutricion.destroy');
+});
+
 
 /*
 |--------------------------------------------------------------------------

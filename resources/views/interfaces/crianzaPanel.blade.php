@@ -69,16 +69,6 @@
       </div>
     </div>
 
-    <!-- Filtro de categorías 
-    <div class="flex justify-end mb-4">
-        <select id="filtro-categoria" class="border rounded px-3 py-2" @change="filtrarCategoria">
-            <option value="">Todas las categorías</option>
-            @foreach ($categorias as $categoria)
-                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-            @endforeach
-        </select>
-    </div>-->
-
     <!-- Cards para mostrar las crianzas -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="contenedor-crianza">
       @foreach($crianzas as $crianza)
@@ -244,26 +234,4 @@
     </div>
   </div>
 </div>
-
-
-<script>
- /*   document.addEventListener("DOMContentLoaded", function () {
-        const filtroCategorias = document.getElementById("filtro-categoria");
-    
-        filtroCategorias.addEventListener("change", function () {
-            let categoriaSeleccionada = this.value;
-            let cards = document.querySelectorAll("#contenedor-crianza .card");
-    
-            cards.forEach(card => {
-                let categoria = card.getAttribute("data-categoria");
-    
-                if (categoriaSeleccionada === "" || categoria === categoriaSeleccionada) {
-                    card.style.display = "block"; // Mostrar la card
-                } else {
-                    card.style.display = "none"; // Ocultar la card
-                }
-            });
-        });
-    });*/
-</script>
 
