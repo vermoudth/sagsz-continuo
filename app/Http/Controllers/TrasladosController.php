@@ -45,9 +45,9 @@ class TrasladosController extends Controller
     }
 
 
-/*
+
     // Actualizar un traslado existente
-    public function update(Request $request, $id)
+    /*public function update(Request $request, $id)
     {
         $request->validate([
             'id_animal' => 'required|exists:animales,id',
@@ -57,7 +57,7 @@ class TrasladosController extends Controller
             'responsable_id' => 'required|exists:users,id'
         ]);
 
-        $traslado = Traslado::findOrFail($id);
+        $traslado = Traslados::findOrFail($id);
         $traslado->update($request->all());
 
         return redirect()->route('traslados.index')->with('success', 'Registro actualizado correctamente');
@@ -67,7 +67,7 @@ class TrasladosController extends Controller
     public function destroy($id)
     {
         try {
-            $traslado = Traslado::findOrFail($id);
+            $traslado = Traslados::findOrFail($id);
             $traslado->delete();
 
             return redirect()->route('traslados.index')->with('success', 'Registro de traslado eliminado correctamente.');
