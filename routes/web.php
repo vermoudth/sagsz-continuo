@@ -58,9 +58,9 @@ Route::delete('/animales/{id}', [FormAnimalController::class, 'destroy'])->name(
 */
 Route::prefix('nutricion')->group(function () {
     Route::get('/', [NutricionController::class, 'index'])->name('nutricion.index');
-    //Route::post('/', [NutricionController::class, 'store'])->name('nutricion.store');
-    //Route::put('/{id}', [NutricionController::class, 'update'])->name('nutricion.update');
-    //Route::delete('/{id}', [NutricionController::class, 'destroy'])->name('nutricion.destroy');
+    Route::post('/', [NutricionController::class, 'store'])->name('nutricion.store');
+    Route::put('/{id}', [NutricionController::class, 'update'])->name('nutricion.update');
+    Route::delete('/{id}', [NutricionController::class, 'destroy'])->name('nutricion.destroy');
 });
 
 
