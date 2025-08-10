@@ -89,9 +89,9 @@ Route::prefix('nutricion')->group(function () {
 
 Route::prefix('traslados')->group(function () {
     Route::get('/', [TrasladosController::class, 'index'])->name('traslados.index');
-    //Route::post('/', [TrasladosController::class, 'store'])->name('traslados.store');
-    //  Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
-   // Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
+    Route::post('/', [TrasladosController::class, 'store'])->name('traslados.store');
+    //Route::put('/{id}', [TrasladosController::class, 'update'])->name('traslados.update');
+    //Route::delete('/{id}', [TrasladosController::class, 'destroy'])->name('traslados.destroy');
 });
 
 /*

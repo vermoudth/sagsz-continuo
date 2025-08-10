@@ -29,25 +29,25 @@ class TrasladosController extends Controller
     }
 
     // Guardar un nuevo traslado
-    /*public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'id_animal' => 'required|exists:animales,id',
+            'animal_id' => 'required|exists:animales,id',
             'origen' => 'required|string',
             'destino' => 'required|string',
             'fecha' => 'required|date',
-            'responsable_id' => 'required|exists:users,id'
+            'responsable_id' => 'required|exists:usuarios,id'
         ]);
 
         Traslados::create($request->all());
 
         return redirect()->route('traslados.index')->with('success', 'Registro de traslado agregado exitosamente.');
-    }*/
+    }
 
 
-/*
+
     // Actualizar un traslado existente
-    public function update(Request $request, $id)
+    /*public function update(Request $request, $id)
     {
         $request->validate([
             'id_animal' => 'required|exists:animales,id',
@@ -57,7 +57,7 @@ class TrasladosController extends Controller
             'responsable_id' => 'required|exists:users,id'
         ]);
 
-        $traslado = Traslado::findOrFail($id);
+        $traslado = Traslados::findOrFail($id);
         $traslado->update($request->all());
 
         return redirect()->route('traslados.index')->with('success', 'Registro actualizado correctamente');
@@ -67,7 +67,7 @@ class TrasladosController extends Controller
     public function destroy($id)
     {
         try {
-            $traslado = Traslado::findOrFail($id);
+            $traslado = Traslados::findOrFail($id);
             $traslado->delete();
 
             return redirect()->route('traslados.index')->with('success', 'Registro de traslado eliminado correctamente.');
