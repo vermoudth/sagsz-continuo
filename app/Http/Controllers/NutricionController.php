@@ -13,22 +13,21 @@ class NutricionController extends Controller
     // Mostrar todas las crianzas
     public function index(Request $request)
     {
-        return view('interfaces.nutricionPanel');
         $animales = Animal::all();
         $usuarios = User::all();
         $categorias = CategoriaAnimal::all();
         $categoriaId = $request->input('categoria_id');
 
-        $nutricion = Nutricion::with(['animal.categoria', 'responsable'])->paginatio(3);
+        $nutriciones = Nutricion::with(['animal.categoria', 'responsable'])->paginate(3);
 
         if ($request->ajax()) {
-            return view('interfaces.nutricionPanel', compact('usuarios', 'animales', 'nutricion', 'categorias'));
+            return view('interfaces.nutricionPanel', compact('usuarios', 'animales', 'nutriciones', 'categorias'));
         } else {
             return view('interfaces.homePanel', [
                 'modulo' => 'nutricion',
                 'usuarios' => $usuarios,
                 'animales' => $animales,
-                'nutricion' => $nutricion,
+                'nutriciones' => $nutriciones,
                 'categorias' => $categorias,
             ]);
         }
