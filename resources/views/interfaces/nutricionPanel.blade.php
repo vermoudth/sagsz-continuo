@@ -9,8 +9,7 @@
       <!-- Botón que abre el modal -->
       <button 
         @click="showAdd = true"
-        class="bg-green-600 text-white px-3 py-1.5 rounded-md shadow hover:bg-green-700 transition duration-200 text-sm flex items-center gap-2"
-      >
+        class="bg-green-600 text-white px-3 py-1.5 rounded-md shadow hover:bg-green-700 transition duration-200 text-sm flex items-center gap-2">
         <i class="fas fa-plus text-sm"></i>
         Añadir Nutrición
       </button>
@@ -20,8 +19,7 @@
         x-show="showAdd" 
         class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
         x-cloak
-        @click.outside="showAdd = false"
-      >
+        @click.outside="showAdd = false">
         <div class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-700">
           
           <h2 class="text-lg font-semibold mb-4 text-white">Añadir Registro de Nutrición</h2>
@@ -34,11 +32,12 @@
               <label for="animal_id" class="block text-gray-300 font-medium mb-2">Animal</label>
               <select 
                 class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200"
-                name="animal_id" required
-              >
+                name="animal_id" required>
                 <option value="">Seleccionar Animal</option>
                 @foreach($animales as $animal)
-                  <option value="{{ $animal->id }}">{{ $animal->nombre }}</option>
+                  <option value="{{ $animal->id }}">
+                    {{ $animal->nombre }}
+                  </option>
                 @endforeach
               </select>
             </div>
@@ -55,60 +54,62 @@
               >
             </div>
 
-              <!-- Campo: Cantidad -->
-              <div class="mb-4">
-                <label for="cantidad" class="block text-gray-300 font-medium mb-2">Cantidad</label>
-                <textarea
-                  name="cantidad"
-                  rows="2"
-                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 resize-none"
-                  placeholder="Ej. 5.50 kg, 200 g 3 veces/día..."
-                  required
-                ></textarea>
+            <!-- Campo: Cantidad -->
+            <div class="mb-4">
+              <label for="cantidad" class="block text-gray-300 font-medium mb-2">Cantidad</label>
+              <textarea
+                name="cantidad"
+                rows="2"
+                class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 resize-none"
+                placeholder="Ej. 5.50 kg, 200 g 3 veces/día..."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Grupo Fecha y Responsable -->
+            <div class="flex flex-col md:flex-row gap-4">
+              <!-- Fecha -->
+              <div class="flex-1">
+                <label class="block text-gray-300 font-medium mb-2">Fecha</label>
+                <input 
+                  type="date" name="fecha" required
+                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                >
               </div>
 
+              <!-- Responsable -->
+              <div class="flex-1">
+                <label class="block text-gray-300 font-medium mb-2">Responsable</label>
+                <select 
+                  name="responsable_id" required
+                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                >
+                  <option value="">Seleccione responsable</option>
+                  @foreach($usuarios as $usuario)
+                    <option value="{{ $usuario->id }}"> 
+                      {{ $usuario->nombre ?? 'Usuario sin nombre' }} - {{ $usuario->rol_id->nombre ?? 'Sin rol' }}
 
-            <!-- Campo: Fecha -->
-            <div class="mb-4">
-              <label for="fecha" class="block text-gray-300 font-medium mb-2">Fecha</label>
-              <input 
-                type="date" 
-                class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200" 
-                name="fecha" 
-                required
-              >
+                    </option>
+                  @endforeach
+                </select>
+              </div>
             </div>
 
-            <!-- Campo: Responsable -->
-            <div class="mb-4">
-              <label for="responsable_id" class="block text-gray-300 font-medium mb-2">Responsable</label>
-              <select 
-                class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200"
-                name="responsable_id" required
+            <!-- Botones en línea -->
+            <div class="flex justify-end gap-3 mt-4">
+              <button type="submit"
+                class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded shadow transition text-sm"
               >
-                <option value="">Seleccionar Responsable</option>
-                @foreach($usuarios as $usuario)
-                  <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
-                @endforeach
-              </select>
+                Guardar
+              </button>
+              <button 
+                type="button" 
+                @click="showAdd = false"
+                class="bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition text-sm"
+              >
+                Cancelar
+              </button>
             </div>
-
-            <!-- Botón Guardar -->
-            <button 
-              type="submit" 
-              class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition"
-            >
-              Guardar
-            </button>
-          </form>
-
-          <!-- Botón para cerrar -->
-          <button 
-            @click="showAdd = false"
-            class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition"
-          >
-            Cerrar
-          </button>
 
         </div>
       </div>
@@ -151,7 +152,7 @@
             </div>
             <div>
               <i class="fas fa-user text-purple-500 text-lg"></i>
-              <p class="font-medium truncate">Resp. ID: {{ $nutricion->responsable_id }}</p>
+              <p class="font-medium truncate">Resp. N: {{ $nutricion->responsable->nombre ?? 'Desconocido' }}</p>
               <p class="text-xs">Responsable</p>
             </div>
           </div>
