@@ -110,14 +110,14 @@
                 Cancelar
               </button>
             </div>
-
+          </form>
         </div>
       </div>
     </div>
 
 
     <!-- Cards de nutrición -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3" id="contenedor-paginacion">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
       @forelse ($nutriciones as $nutricion)
         <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-4 transition-colors duration-300 hover:shadow-lg flex flex-col justify-between">
           <!-- Encabezado con animal -->
@@ -189,7 +189,7 @@
 
     <!-- Paginación -->
     @if($nutriciones instanceof \Illuminate\Pagination\LengthAwarePaginator && $nutriciones->hasPages())
-      <div class="flex justify-center mt-4 pagination">
+      <div class="flex justify-center mt-4">
         {{ $nutriciones->links() }}
       </div>
     @endif
@@ -313,16 +313,15 @@
 
             </div>
 
-
             <!-- Botones -->
             <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition">
               Actualizar
             </button>
+            <button @click="abierto = false"
+              class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+              Cancelar
+            </button>
           </form>
-          <button @click="abierto = false"
-            class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
-             Cancelar
-          </button>
       </div>
     </div>
 
