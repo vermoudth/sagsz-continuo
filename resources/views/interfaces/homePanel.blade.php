@@ -93,10 +93,11 @@
               </li>
             </ol>
           </nav>
+          <!-- Buscador general
           <form class="flex w-1/4">
             <input class="w-full px-3 py-1 border border-gray-300 rounded-l dark:bg-gray-800 dark:text-white dark:border-gray-600" type="search" placeholder="Buscar">
             <button class="px-4 py-1 bg-green-600 text-white rounded-r hover:bg-green-700" type="submit">Buscar</button>
-          </form>
+          </form>-->
           
         </header>
 
