@@ -29,6 +29,18 @@ function cargarSeccion(ruta) {
   .then(html => {
     contenedor.innerHTML = html;
     Alpine.initTree(contenedor);
+    // Recolectar todos los links de paginación dentro del contenido cargado
+    const paginacion = document.getElementById('paginacion-crianza');
+    if (paginacion) {
+      paginacion.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const url = this.href;
+          cargarSeccion(url);  // Llama a tu función AJAX para cargar esa página
+        });
+      });
+    }
+
     contenedor.dataset.loading = "false";
 
     if (window.location.pathname !== ruta) {

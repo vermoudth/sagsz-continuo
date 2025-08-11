@@ -270,34 +270,59 @@
               </textarea>
             </div>
 
-            <!-- Fecha -->
-            <div class="mb-4">
-              <label class="block text-gray-300 font-medium mb-2">Fecha</label>
-              <input type="date" x-model="formData.fecha" name="fecha" required
-              class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200">
+            <!-- Grupo: Fecha y Responsable -->
+            <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              
+              <!-- Fecha -->
+              <div>
+                <label class="block text-gray-300 font-medium mb-2">Fecha</label>
+                <input 
+                  type="date" 
+                  x-model="formData.fecha" 
+                  name="fecha" 
+                  required
+                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm 
+                        focus:border-blue-500 focus:ring focus:ring-blue-200 
+                        @error('fecha') border-red-500 @enderror"
+                >
+                @error('fecha')
+                  <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <!-- Responsable -->
+              <div>
+                <label class="block text-gray-300 font-medium mb-2">Responsable</label>
+                <select 
+                  name="responsable_id" 
+                  x-model="formData.responsable_id" 
+                  required
+                  class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm 
+                        focus:border-blue-500 focus:ring focus:ring-blue-200 
+                        @error('responsable_id') border-red-500 @enderror"
+                >
+                  <option value="">Seleccionar Responsable</option>
+                  @foreach($usuarios as $usuario)
+                    <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                  @endforeach
+                </select>
+                @error('responsable_id')
+                  <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
             </div>
 
-            <!-- Responsable -->
-            <div class="mb-4">
-              <label class="block text-gray-300 font-medium mb-2">Responsable</label>
-              <select name="responsable_id" x-model="formData.responsable_id" required
-                class="block w-full rounded border-gray-600 bg-gray-700 text-white shadow-sm focus:border-green-500 focus:ring focus:ring-green-200">
-                <option value="">Seleccionar Responsable</option>
-                @foreach($usuarios as $usuario)
-                  <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
-                @endforeach
-              </select>
-            </div>
 
             <!-- Botones -->
             <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded shadow transition">
               Actualizar
             </button>
-            <button @click="abierto = false"
-              class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
-              Cancelar
-            </button>
           </form>
+          <button @click="abierto = false"
+            class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 px-4 rounded shadow transition">
+             Cancelar
+          </button>
       </div>
     </div>
 
