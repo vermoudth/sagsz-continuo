@@ -1,14 +1,32 @@
+function actualizarBreadcrumb(ruta, titulo) {
+  const breadcrumbOl = document.getElementById('breadcrumb-ol');
+  if (!breadcrumbOl) return;
+
+  if (ruta === '/homePanel' || ruta === '/') {
+    breadcrumbOl.innerHTML = '';
+    document.getElementById('homePanel').style.display = 'block';
+  } else {
+    breadcrumbOl.innerHTML = `
+      <li><a href="/homePanel" class="hover:underline">Panel de Inicio</a></li>
+      <li>/</li>
+      <li class="text-white-500 dark:text-white-300">${titulo || 'Sección'}</li>
+    `;
+    document.getElementById('homePanel').style.display = 'none';
+  }
+}
+
 function cargarSeccion(ruta) {
   const contenedor = document.getElementById('contenido-dinamico');
   const homePanel = document.getElementById('homePanel');
 
   if (contenedor.dataset.loading === "true") return;
 
-  if (ruta === '/homePanel') {
+  if (ruta === '/homePanel' || ruta === '/') {
     // Mostrar homePanel y limpiar contenido dinámico
     homePanel.style.display = 'block';
     contenedor.innerHTML = '';
     window.history.pushState({ ruta }, '', ruta);
+    actualizarBreadcrumb(ruta);
     return;
   }
 
@@ -34,6 +52,16 @@ function cargarSeccion(ruta) {
     if (window.location.pathname !== ruta) {
       window.history.pushState({ ruta }, '', ruta);
     }
+
+    // Actualizar breadcrumb después de cargar contenido
+    const rutasValidas = {
+      '/traslados': 'Traslados',
+      '/crianza': 'Crianza',
+      '/laboratorio': 'Laboratorio',
+      '/nutricion': 'Nutrición',
+      '/monitoreo-ambiental': 'Monitoreo Ambiental',
+    };
+    actualizarBreadcrumb(ruta, rutasValidas[ruta]);
   })
   .catch(error => {
     console.error(error);
@@ -56,36 +84,16 @@ window.addEventListener("popstate", () => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  const breadcrumbOl = document.getElementById('breadcrumb-ol');
-
-  // Manejo de clics en enlaces del sidebar y en Inicio
+  // Manejo de clics para enlaces del sidebar e inicio
   document.querySelectorAll('[data-ruta], #inicio-link').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-
-      // Ruta a cargar (para Inicio usamos '/homePanel')
       const ruta = this.getAttribute('data-ruta') || '/homePanel';
       cargarSeccion(ruta);
-
-      // Actualizar breadcrumb
-      if (breadcrumbOl) {
-        if (ruta === '/homePanel') {
-          breadcrumbOl.innerHTML = '';
-          document.getElementById('homePanel').style.display = 'block';
-        } else {
-          const titulo = this.getAttribute('data-titulo') || 'Sección';
-          breadcrumbOl.innerHTML = `
-            <li><a href="/homePanel" class="hover:underline">Panel de Inicio</a></li>
-            <li>/</li>
-            <li class="text-white-500 dark:text-white-300">${titulo}</li>
-          `;
-          document.getElementById('homePanel').style.display = 'none';
-        }
-      }
     });
   });
 
-  // Al cargar la página, si la ruta es válida, cargar contenido o mostrar homePanel
+  // Al cargar la página por primera vez
   const rutasValidas = {
     '/trasladosPanel': 'Traslados',
     '/crianza': 'Crianza',
@@ -98,19 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (rutasValidas[path]) {
     cargarSeccion(path);
-
-    if (breadcrumbOl) {
-      breadcrumbOl.innerHTML = `
-        <li><a href="/homePanel" class="hover:underline">Panel de Inicio</a></li>
-        <li>/</li>
-        <li class="text-white-500 dark:text-white-300">${rutasValidas[path]}</li>
-      `;
-    }
-
-    document.getElementById('homePanel').style.display = 'none';
   } else if (path === '/homePanel' || path === '/') {
-    // Mostrar homePanel si estamos en la raíz o en /homePanel
     document.getElementById('homePanel').style.display = 'block';
-    if (breadcrumbOl) breadcrumbOl.innerHTML = '';
+    actualizarBreadcrumb('/homePanel');
   }
 });
