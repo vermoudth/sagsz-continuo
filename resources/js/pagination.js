@@ -1,29 +1,3 @@
-window.editarCrianza = function () {
-    return {
-        abierto: false,
-        formData: {
-            id: null,
-            animal_id: '',
-            descripcion: '',
-            fecha: '',
-            responsable_id: ''
-        },
-        abrirModal(data) {
-            this.formData = {
-                ...data,
-                animal_id: String(data.animal),
-                fecha: this.formatearFecha(data.fecha)
-            };
-            this.abierto = true;
-        },
-        cerrarModal() {
-            this.abierto = false;
-        },
-        formatearFecha(fechaCompleta) {
-            return fechaCompleta?.split(' ')[0] || '';
-        }
-    };
-    };
 document.addEventListener('DOMContentLoaded', function () {
     // Delegación de eventos a los links de paginación
     document.addEventListener('click', function (e) {
@@ -43,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
 
-          const newCards = doc.querySelector('#contenedor-crianza');
+          const newCards = doc.querySelector('#contenedor-paginacion');
           const newPagination = doc.querySelector('.pagination');
 
           if (newCards && newPagination) {
-            document.querySelector('#contenedor-crianza').innerHTML = newCards.innerHTML;
+            document.querySelector('#contenedor-paginacion').innerHTML = newCards.innerHTML;
             document.querySelector('.pagination').innerHTML = newPagination.innerHTML;
           }
         })

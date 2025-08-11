@@ -113,7 +113,7 @@
     </div>
 
     <!-- Cards de laboratorio -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3" id="contenedor-paginacion">
       @forelse ($laboratorios as $lab)
         <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-4 transition-colors duration-300 hover:shadow-lg flex flex-col justify-between">
           <!-- Encabezado con animal -->
@@ -188,7 +188,7 @@
 
     <!-- Paginación -->
     @if($laboratorios instanceof \Illuminate\Pagination\LengthAwarePaginator && $laboratorios->hasPages())
-      <div class="flex justify-center mt-4">
+      <div class="flex justify-center mt-4 pagination">
         {{ $laboratorios->links() }}
       </div>
     @endif

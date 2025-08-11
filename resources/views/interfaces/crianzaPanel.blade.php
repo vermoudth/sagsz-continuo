@@ -132,7 +132,7 @@
     </div>
 
     <!-- Cards de crianza -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="contenedor-paginacion">
       @forelse ($crianzas as $crianza)
         <div class="bg-gray-700 rounded-lg shadow p-4 flex flex-col justify-between text-white">
           <!-- Título con animal -->
@@ -195,9 +195,11 @@
 
 
     <!-- Paginación -->
-    <div class="flex justify-center mt-4">
-      {{ $crianzas->links() }}
-    </div>
+    @if($crianzas instanceof \Illuminate\Pagination\LengthAwarePaginator && $crianzas->hasPages())
+      <div class="flex justify-center mt-4 pagination">
+        {{ $crianzas->links() }}
+      </div>
+    @endif
 
 
     <!-- Modal para eliminar crianza -->

@@ -134,8 +134,8 @@
       @endforeach
     </div>
 
-    <!-- Listado de traslados -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+    <!-- Cards de traslados -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3" id="contenedor-paginacion">
       @forelse ($traslados as $traslado)
         <div class="bg-white dark:bg-gray-800 shadow rounded-xl p-3 transition-colors duration-300">
           <h2 class="text-base font-bold mb-2 dark:text-white">
@@ -174,7 +174,7 @@
 
     <!-- Paginación -->
     @if($traslados instanceof \Illuminate\Pagination\LengthAwarePaginator && $traslados->hasPages())
-      <div class="flex justify-center mt-4">
+      <div class="flex justify-center mt-4 pagination">
         {{ $traslados->links() }}
       </div>
     @endif
