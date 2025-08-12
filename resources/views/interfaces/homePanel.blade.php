@@ -31,13 +31,13 @@
           </a>
         </li>
         <li>
-          <a href="/traslados" onclick="event.preventDefault(); cargarSeccion('/traslados')" class="flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 cursor-pointer text-gray-800 dark:text-white" title="Traslados">
+          <a href="/traslados" onclick="event.preventDefault(); cargarSeccion('/traslados')" class="flex items-center justify-center md:justify-start gap-2 hover:text-indigo-600 cursor-pointer text-gray-800 dark:text-white" title="Traslados">
             <i class="fas fa-truck text-lg"></i>
             <span class="hidden md:inline font-semibold">Traslados</span>
           </a>
         </li>
         <li>
-          <a href="/crianza" onclick="event.preventDefault(); cargarSeccion('/crianza')" class="sidebar-link flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 cursor-pointer text-gray-800 dark:text-white" title="Crianza">
+          <a href="/crianza" onclick="event.preventDefault(); cargarSeccion('/crianza')" class="sidebar-link flex items-center justify-center md:justify-start gap-2 hover:text-orange-600 cursor-pointer text-gray-800 dark:text-white" title="Crianza">
             <i class="fas fa-paw text-lg"></i>
             <span class="hidden md:inline font-semibold">Crianza</span>
           </a>
@@ -49,13 +49,13 @@
           </a>
         </li>
         <li>
-          <a id="/nutricion" onclick="event.preventDefault(); cargarSeccion('/nutricion')" class="flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 cursor-pointer text-gray-800 dark:text-white" title="Nutrición">
+          <a id="/nutricion" onclick="event.preventDefault(); cargarSeccion('/nutricion')" class="flex items-center justify-center md:justify-start gap-2 hover:text-green-600 cursor-pointer text-gray-800 dark:text-white" title="Nutrición">
             <i class="fa-solid fa-heart text-lg"></i>
             <span class="hidden md:inline font-semibold">Nutrición</span>
           </a>
         </li>
         <li>
-          <a href="/monitoreo-ambiental" onclick="event.preventDefault(); cargarSeccion('/monitoreo-ambiental')" class="flex items-center gap-2 hover:text-blue-600 cursor-pointer text-gray-800 dark:text-white" title="Monitoreo Ambiental">
+          <a href="/monitoreo-ambiental" onclick="event.preventDefault(); cargarSeccion('/monitoreo-ambiental')" class="flex items-center gap-2 hover:text-lime-200 cursor-pointer text-gray-800 dark:text-white" title="Monitoreo Ambiental">
             <i class="fas fa-paw text-lg"></i>
             <span class="hidden md:inline font-semibold">Monitoreo Ambiental</span>
           </a>
@@ -107,7 +107,7 @@
             </ol>
           </nav>
 
-          <!-- Comentado el buscador, pero con responsividad en caso que quieras activarlo -->
+          <!-- Buscador -->
           <!--
           <form class="flex w-full md:w-1/4">
             <input

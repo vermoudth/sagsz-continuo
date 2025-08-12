@@ -32,11 +32,22 @@ class MonitoreoAmbientalController extends Controller
                 $join->on('registros_ambientales.categoria_id', '=', 'ultimos.categoria_id')
                     ->on('registros_ambientales.registrado_en', '=', 'ultimos.max_fecha');
             })
-            ->with('categoria') // Relación con nombre de categoría
+            ->join('parametros_ambientales', 'registros_ambientales.categoria_id', '=', 'parametros_ambientales.categoria_id')
+            ->join('categorias_animales', 'registros_ambientales.categoria_id', '=', 'categorias_animales.id')
+            ->select(
+                'registros_ambientales.*',
+                'categorias_animales.nombre as categoria_nombre',
+                'parametros_ambientales.temperatura_min',
+                'parametros_ambientales.temperatura_max',
+                'parametros_ambientales.humedad_min',
+                'parametros_ambientales.humedad_max'
+            )
             ->get();
 
         return response()->json($datos);
     }
+
+
 
     public function guardar(Request $request)
     {
