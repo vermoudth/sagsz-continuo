@@ -135,12 +135,21 @@
           <img src="{{ asset('img/sagsz_logo.webp') }}" class="mx-auto mt-4 w-1/3 rounded" alt="Logo" />
         </div>
 
-        <!-- Contenido Dinámico -->
-        <div id="contenido-dinamico">
-          @if(isset($modulo))
-            @include('interfaces.' . $modulo . 'Panel') {{-- Esto incluirá crianzaPanel.blade.php --}}
-          @endif
+        <!-- Contenedor padre responsivo para contenido dinámico -->
+        <div
+          id="contenido-dinamico-wrapper"
+          class="w-full max-w-7xl px-4 py-4 mx-auto
+                dark:bg-gray-900 dark:text-white
+                transition-colors duration-300
+                overflow-x-auto"
+        >
+          <div id="contenido-dinamico" class="min-w-full">
+            @if(isset($modulo))
+              @include('interfaces.' . $modulo . 'Panel')
+            @endif
+          </div>
         </div>
+
       </main>
     </div>
   </div>
