@@ -134,29 +134,28 @@
     <!-- Cards de crianza -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="contenedor-paginacion">
       @forelse ($crianzas as $crianza)
-        <div class="bg-gray-700 rounded-lg shadow p-4 flex flex-col justify-between text-white">
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow p-4 flex flex-col justify-between transition-colors duration-300">
           <!-- Título con animal -->
-          <h5 class="font-semibold text-lg mb-2 truncate">{{ $crianza->animal->nombre ?? 'Animal desconocido' }}</h5>
+          <h5 class="font-semibold text-lg mb-2 truncate text-gray-900 dark:text-white">
+            {{ $crianza->animal->nombre ?? 'Animal desconocido' }}
+          </h5>
 
           <!-- Info compacta en fila -->
-          <div class="flex flex-wrap gap-4 text-sm text-gray-300">
+          <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
             <div class="flex items-center gap-1 min-w-[120px]">
-              <!-- Icono calendario -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M4 11h16M4 19h16M4 15h16M4 7h16" />
               </svg>
               <span>Registro: {{ \Carbon\Carbon::parse($crianza->fecha)->format('d/m/Y') }}</span>
             </div>
             <div class="flex items-center gap-1 min-w-[140px]">
-              <!-- Icono comentario -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0-4.418-4.03-8-9-8S3 7.582 3 12s4.03 8 9 8c1.55 0 3-.354 4.243-.98l3.514.727a1 1 0 001.212-1.212l-.727-3.514A7.963 7.963 0 0021 12z" />
               </svg>
               <span>{{ Str::limit($crianza->descripcion, 40) }}</span>
             </div>
             <div class="flex items-center gap-1 min-w-[120px]">
-              <!-- Icono usuario -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-500 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.577 0 4.97.733 6.879 1.993M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               <span>Resp.: {{ $crianza->responsable->nombre ?? 'N/A' }}</span>
@@ -186,12 +185,13 @@
           </div>
         </div>
       @empty
-        <div class="col-span-full text-center text-gray-400 py-12">
+        <div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-12">
           <i class="fas fa-baby-carriage text-4xl mb-4"></i>
           No hay registros de crianza disponibles.
         </div>
       @endforelse
     </div>
+
 
 
     <!-- Paginación -->
