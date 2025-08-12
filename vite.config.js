@@ -7,8 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/appLayoutPanel.js',
-                'resources/js/crianzaModulo.js'
+                'resources/js/appLayoutPanel.js'
             ],
             refresh: true,
         }),
