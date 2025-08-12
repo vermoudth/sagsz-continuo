@@ -67,18 +67,22 @@
       <!-- Botón de ajustes y cerrar sesión -->
       <div class="relative mt-auto">
         <button
-          class="flex items-center gap-2 hover:text-blue-600 cursor-pointer text-gray-800 dark:text-white"
           id="dropdownUser2"
           aria-haspopup="true"
           aria-expanded="false"
+          class="flex items-center gap-2 hover:text-blue-600 cursor-pointer text-gray-800 dark:text-white"
+          type="button"
         >
           <i class="fa-solid fa-gear"></i> <strong>Ajustes</strong>
         </button>
+
         <ul
-          class="absolute hidden mt-2 bg-white dark:bg-gray-800 text-sm rounded shadow-md w-40 right-0 z-10"
           id="settingsMenu"
           role="menu"
           aria-label="Menú de ajustes"
+          class="hidden bg-white dark:bg-gray-800 text-sm rounded shadow-md w-40 right-0 z-50
+                sm:absolute sm:mt-2
+                md:static md:mt-0 md:shadow-none md:bg-transparent md:dark:bg-transparent"
         >
           <li>
             <a href="#" class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700" role="menuitem">Settings</a>
@@ -92,6 +96,7 @@
           </li>
         </ul>
       </div>
+
     </nav>
 
     <!-- Contenido Principal -->
@@ -155,13 +160,42 @@
   </div>
 
   <script>
-    // Toggle simple del menú de ajustes
-    document.getElementById('dropdownUser2')?.addEventListener('click', () => {
-      const menu = document.getElementById('settingsMenu');
-      menu.classList.toggle('hidden');
-      // Actualizar atributo aria-expanded para accesibilidad
-      const expanded = menu.classList.contains('hidden') ? 'false' : 'true';
-      document.getElementById('dropdownUser2').setAttribute('aria-expanded', expanded);
+    const dropdownBtn = document.getElementById('dropdownUser2');
+    const settingsMenu = document.getElementById('settingsMenu');
+
+    dropdownBtn?.addEventListener('click', () => {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+      if (isMobile) {
+        // Móvil: menú fijo posicionado justo debajo del botón
+        const rect = dropdownBtn.getBoundingClientRect();
+
+        settingsMenu.style.position = 'fixed';
+        settingsMenu.style.left = rect.left + 'px';
+        settingsMenu.style.top = rect.bottom + 'px';
+        settingsMenu.style.width = rect.width + 'px';
+        settingsMenu.style.right = 'auto'; // para evitar conflicto con "right-0"
+      } else {
+        // Escritorio: menú dentro del flujo normal
+        settingsMenu.style.position = 'static';
+        settingsMenu.style.left = '';
+        settingsMenu.style.top = '';
+        settingsMenu.style.width = '';
+        settingsMenu.style.right = '';
+      }
+
+      settingsMenu.classList.toggle('hidden');
+
+      dropdownBtn.setAttribute('aria-expanded', settingsMenu.classList.contains('hidden') ? 'false' : 'true');
+    });
+
+    // Cerrar el menú si se hace clic fuera de él
+    document.addEventListener('click', (event) => {
+      const isClickInside = dropdownBtn.contains(event.target) || settingsMenu.contains(event.target);
+      if (!isClickInside) {
+        settingsMenu.classList.add('hidden');
+        dropdownBtn.setAttribute('aria-expanded', 'false');
+      }
     });
   </script>
 </body>

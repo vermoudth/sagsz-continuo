@@ -9,7 +9,7 @@
       <!-- Botón que abre el modal -->
       <button 
         @click="showAdd = true"
-        class="bg-blue-600 text-white px-3 py-1.5 rounded-md shadow hover:bg-blue-700 transition duration-200 text-sm flex items-center gap-2">
+        class="bg-indigo-600 text-white px-3 py-1.5 rounded-md shadow hover:bg-indigo-700 transition duration-200 text-sm flex items-center gap-2">
         <i class="fas fa-plus text-sm"></i>
         Añadir traslado
       </button>

@@ -43,8 +43,8 @@
           card.className = `bg-white dark:bg-gray-800 shadow rounded p-4`; // Fijo, no cambia
           card.innerHTML = `
             <h2 class="text-xl font-bold mb-2">🦜 Categoría: ${nombreCategoria}</h2>
-            <p class="${claseTemp}">🌡️ Temp: ${reg.temperatura} °C</p>
-            <p class="${claseHum}">💧 Humedad: ${reg.humedad} %</p>
+            <p class="${claseTemp} transition-colors duration-300">🌡️ Temp: ${reg.temperatura} °C</p>
+            <p class="${claseHum} transition-colors duration-300">💧 Humedad: ${reg.humedad} %</p>
             <p class="text-sm text-gray-500">⏱️ ${new Date(reg.registrado_en).toLocaleTimeString()}</p>
           `;
         }

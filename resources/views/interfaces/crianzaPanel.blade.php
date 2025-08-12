@@ -30,7 +30,7 @@
     <div class="flex justify-end" x-data="{ showAdd: false }">
       <button 
         @click="showAdd = true"
-        class="bg-blue-600 text-white px-3 py-1.5 rounded-md shadow hover:bg-blue-700 transition duration-200 text-sm flex items-center gap-2"
+        class="bg-orange-600 text-white px-3 py-1.5 rounded-md shadow hover:bg-orange-700 transition duration-200 text-sm flex items-center gap-2"
       >
         <i class="fas fa-plus text-sm"></i> Añadir Crianza
       </button>
@@ -185,9 +185,9 @@
           </div>
         </div>
       @empty
-        <div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-12">
-          <i class="fas fa-baby-carriage text-4xl mb-4"></i>
-          No hay registros de crianza disponibles.
+        <div class="col-span-4 text-center py-10 text-gray-500 dark:text-gray-400 py-10">
+          <i class="fas fa-baby-carriage text-3xl text-gray-400 mb-2"></i>
+          <p class="text-gray-500 text-sm"> No hay registros de crianza disponibles. </p>
         </div>
       @endforelse
     </div>
