@@ -1,0 +1,51 @@
+# Nombre del flujo de trabajo que aparecerá en la pestaña "Actions" de GitHub
+name: Deploy to Render
+
+# Se activa cada vez que haces un 'push' a la rama 'main'
+on:
+  push:
+    branches: [ main ]
+
+# Define los trabajos a ejecutar
+jobs:
+  deploy:
+    # El tipo de máquina virtual en la que se ejecutará el trabajo
+    runs-on: ubuntu-latest
+
+    # Los pasos que se ejecutarán en secuencia
+    steps:
+      # 1. Clona tu repositorio en la máquina virtual
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configura el entorno de PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Asegúrate que coincida con tu versión de Laravel
+          extensions: mbstring, dom, fileinfo, mysql
+          coverage: none
+
+      # 3. Instala las dependencias de Composer
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-dev --optimize-autoloader
+
+      # 4. Configura el entorno de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # O la versión que estés usando
+
+      # 5. Instala las dependencias de NPM y compila los assets
+      - name: Install NPM dependencies and build
+        run: |
+          npm install
+          npm run build
+
+      # 6. (Opcional pero recomendado) En este punto podrías correr pruebas
+      # - name: Run tests
+      #   run: php artisan test
+
+      # 7. Si todo lo anterior funcionó, avisa a Render que despliegue
+      - name: Trigger Render Deploy
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
