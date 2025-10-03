@@ -1,0 +1,8 @@
+.git
+.github
+.env
+/vendor/
+/node_modules/
+/public/build/
+Dockerfile
+.dockerignore
